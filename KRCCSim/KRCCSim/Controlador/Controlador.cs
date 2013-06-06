@@ -1,26 +1,24 @@
 using System;
 using System.Collections.Generic;
 
-namespace KRCCSim
+namespace Controlador
 {
 	public class Controlador
 	{
-		public double T;
+		internal double T;
 		private double t_max;
-        public List<Evento> eventos;
+        internal List<Evento> eventos;
 
-		public Controlador ()
+		public Controlador (double t_max)
 		{
 			this.T = 0;
+            this.t_max = t_max;
 			eventos = new List<Evento>();
-			
-
-			//TESTING
-			this.t_max = 4000;
 		}
+
 		public void Run()
 		{
-			while(this.T < this.t_max)
+			while(T < t_max)
 			{
                 eventos.Sort(Ordenar);
                 eventos[0].realizar_cambio();
@@ -37,8 +35,7 @@ namespace KRCCSim
             else
                 return 0;
 		}
-
-		public void agregar_evento(Evento evento)
+		internal void agregar_evento(Evento evento)
 		{
             eventos.Add(evento);
 		}

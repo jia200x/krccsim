@@ -1,1 +1,7 @@
 C:\Users\Felipe\Documents\GitHub\krccsim\KRCCSim\KRCCSim\KRCCSim\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Felipe\Documents\GitHub\krccsim\KRCCSim\KRCCSim\KRCCSim\bin\Debug\KRCCSim.exe
+C:\Users\Felipe\Documents\GitHub\krccsim\KRCCSim\KRCCSim\KRCCSim\bin\Debug\KRCCSim.pdb
+C:\Users\Felipe\Documents\GitHub\krccsim\KRCCSim\KRCCSim\KRCCSim\bin\Debug\Controlador.dll
+C:\Users\Felipe\Documents\GitHub\krccsim\KRCCSim\KRCCSim\KRCCSim\bin\Debug\Controlador.pdb
+C:\Users\Felipe\Documents\GitHub\krccsim\KRCCSim\KRCCSim\KRCCSim\obj\x86\Debug\KRCCSim.exe
+C:\Users\Felipe\Documents\GitHub\krccsim\KRCCSim\KRCCSim\KRCCSim\obj\x86\Debug\KRCCSim.pdb
