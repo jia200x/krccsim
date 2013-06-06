@@ -23,6 +23,15 @@ namespace KRCCSim
 				
 			}
 		}
+		private int Ordenar(Tuple a, Tuple b)
+		{
+			throw NotImplementedException();
+		}
+
+		public void agregar_evento(double tiempo, Void funcion)
+		{
+			throw NotImplementedException();
+		}
 	}
 }
 
