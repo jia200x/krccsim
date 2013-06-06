@@ -1,5 +1,0 @@
-C:\Users\Felipe\Documents\Visual Studio 2010\Projects\Komatsu\Komatsu\bin\Debug\Komatsu.exe
-C:\Users\Felipe\Documents\Visual Studio 2010\Projects\Komatsu\Komatsu\bin\Debug\Komatsu.pdb
-C:\Users\Felipe\Documents\Visual Studio 2010\Projects\Komatsu\Komatsu\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Users\Felipe\Documents\Visual Studio 2010\Projects\Komatsu\Komatsu\obj\x86\Debug\Komatsu.exe
-C:\Users\Felipe\Documents\Visual Studio 2010\Projects\Komatsu\Komatsu\obj\x86\Debug\Komatsu.pdb
