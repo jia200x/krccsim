@@ -6,13 +6,15 @@ namespace KRCCSim
 	public class Controlador
 	{
 		public double T;
-		private double t_max; 
-		public List<Tuple> eventos;
+		private double t_max;
+        public List<Evento> eventos;
+
 		public Controlador ()
 		{
 			this.T = 0;
-			eventos = new List<Tuple>();
+			eventos = new List<Evento>();
 			
+
 			//TESTING
 			this.t_max = 4000;
 		}
@@ -20,18 +22,28 @@ namespace KRCCSim
 		{
 			while(this.T < this.t_max)
 			{
-				
+                eventos.Sort(Ordenar);
+                eventos[0].realizar_cambio();
 			}
 		}
-		private int Ordenar(Tuple a, Tuple b)
+        private int Ordenar(Evento a, Evento b)
 		{
-			throw NotImplementedException();
+            if (a.tiempo_cambio < b.tiempo_cambio)
+                return -1;
+
+            else if (a.tiempo_cambio > b.tiempo_cambio)
+                return 1;
+
+            else
+                return 0;
 		}
 
-		public void agregar_evento(double tiempo, Void funcion)
+		public void agregar_evento(Evento evento)
 		{
-			throw NotImplementedException();
+            eventos.Add(evento);
 		}
+
+
 	}
 }
 
