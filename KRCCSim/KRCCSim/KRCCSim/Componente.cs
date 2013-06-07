@@ -11,12 +11,12 @@ namespace KRCCSim
         private Camion camion;
 		public override void realizar_cambio()
 		{
-			//Ok, fallo... se hace lo que corresponde y se genera otra falla
-			generar_siguiente_tiempo(20);
+			camion.reemplazar_componente(this, new Componente(c,camion));
 		}
-		public Componente(Controlador c)
+		public Componente(Controlador c, Camion camion)
 		{
 			this.c = c;
+			this.camion = camion;
 			generar_siguiente_tiempo(30);
 		}
     }
