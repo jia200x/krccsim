@@ -22,12 +22,18 @@ namespace NSControlador
 		
 		public void Run()
 		{
-			while(T < t_max)
+			while(true)
 			{
                 eventos.Sort(Ordenar);
+				if(eventos.Count == 0)
+				{
+					Console.WriteLine ("Se acabaron los eventos");
+					break;
+				}
 				this.T = eventos[0].tiempo_cambio;
+				if (this.T > t_max) break;
                 eventos[0].realizar_cambio();
-				//eventos.RemoveAt(0);
+				eventos.RemoveAt(0);
 				Console.WriteLine(T);
 			}
 		}
