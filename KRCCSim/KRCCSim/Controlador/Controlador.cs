@@ -1,11 +1,15 @@
 using System;
 using System.Collections.Generic;
 
-namespace Controlador
+namespace NSControlador
 {
 	public class Controlador
 	{
-		internal double T;
+		private double T;
+		public double T_simulacion
+		{
+			get{return T;}
+		}
 		private double t_max;
         internal List<Evento> eventos;
 
@@ -15,13 +19,16 @@ namespace Controlador
             this.t_max = t_max;
 			eventos = new List<Evento>();
 		}
-
+		
 		public void Run()
 		{
 			while(T < t_max)
 			{
                 eventos.Sort(Ordenar);
+				this.T = eventos[0].tiempo_cambio;
                 eventos[0].realizar_cambio();
+				//eventos.RemoveAt(0);
+				Console.WriteLine(T);
 			}
 		}
         private int Ordenar(Evento a, Evento b)
@@ -35,7 +42,7 @@ namespace Controlador
             else
                 return 0;
 		}
-		internal void agregar_evento(Evento evento)
+		public void agregar_evento(Evento evento)
 		{
             eventos.Add(evento);
 		}
@@ -43,4 +50,3 @@ namespace Controlador
 
 	}
 }
-

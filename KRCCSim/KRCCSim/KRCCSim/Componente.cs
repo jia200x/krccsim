@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Controlador;
+using NSControlador;
 
 namespace KRCCSim
 {
-    public abstract class Componente:Evento
+    public class Componente:Evento
     {
         public Camion camion;
         public Faena faena;
+		public override void realizar_cambio()
+		{
+		}
     }
 }
