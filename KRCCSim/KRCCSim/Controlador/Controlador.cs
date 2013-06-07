@@ -31,11 +31,12 @@ namespace NSControlador
 					break;
 				}
 				this.T = eventos[0].tiempo_cambio;
+				Console.WriteLine("\nTiempo actual: {0}",T);
 				if (this.T > t_max) break;
                 eventos[0].realizar_cambio();
 				eventos.RemoveAt(0);
-				Console.WriteLine(T);
 			}
+			Console.WriteLine("Ha finalizado la simulación");
 		}
         private int Ordenar(Evento a, Evento b)
 		{
