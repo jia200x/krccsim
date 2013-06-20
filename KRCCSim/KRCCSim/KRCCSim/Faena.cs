@@ -10,12 +10,17 @@ namespace KRCCSim
 	{
         public List<Camion> camiones;
 		public List<Componente> batch;
+		private Dictionary<string, string> rmp;
+		//Ponderador de condiciones de la mina, por faena
+		public double ponderador;
 		public Faena(Controlador c)
 		{
 			this.c = c;
 			this.camiones = new List<Camion>();
 			this.batch = new List<Componente>();
 			
+			//La faena sabe su información de reemplazo de camiones. En este clase se genera el vector de cambios 
+			generar_reemplazos();
 			//Solo por testing, la faena se reemplazará cada 70 unidades de tiempo
 			generar_siguiente_tiempo(70);
 		}
@@ -40,6 +45,17 @@ namespace KRCCSim
 			batch = new List<Componente>();
 			Console.WriteLine ("Se han enviado {0} componentes a KRCC", n_componentes);
 		}
-		
+		/// <summary>
+		/// Genera la tabla de reemplazo de camiones para la faena
+		/// </summary>
+		private void generar_reemplazos()
+		{
+			rmp = new Dictionary<string, string>();
+			rmp.Add ("E803","E903");
+		}
+		public string get_reemplazo(string entrada)
+		{
+			return rmp[entrada];
+		}
 	}
 }
