@@ -9,20 +9,22 @@ namespace KRCCSim
     public class Componente:Evento
     {
         private Camion camion;
+		private double[] tasas_falla;
 		public string tipo_componente;
 		public override void realizar_cambio()
 		{
 			//En este punto se puede preguntar si el camion sigue vivo o no
 			if (camion.muerto == false)
 			{
-				camion.reemplazar_componente(this, new Componente(c,camion, "tipo"));
+				camion.reemplazar_componente(this);
 			}
 		}
-		public Componente(Controlador c, Camion camion, string tipo_componente)
+		public Componente(Controlador c, Camion camion, string tipo_componente, double[] tasas_falla)
 		{
 			this.c = c;
 			this.camion = camion;
 			this.tipo_componente = tipo_componente;
+			this.tasas_falla = tasas_falla;
 			generar_siguiente_tiempo(generar_tiempo_de_falla());
 		}
 		private double generar_tiempo_de_falla()

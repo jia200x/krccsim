@@ -9,7 +9,10 @@ namespace KRCCSim
 	public sealed class Input
 	{
 		private static readonly Input instancia = new Input();
-		private static readonly Dictionary<string, Dictionary<string, double[]>> datos = leer_xls();
+		public static readonly Dictionary<string, Dictionary<string, double[]>> datos = leer_xls();
+		public static readonly Dictionary<string, string> reemplazo = gen_reemplazos();
+		public static readonly Dictionary<string, double> tiempo_vida_camion = gen_t_vida();
+		public static readonly Dictionary<string, double> probabilidad_envio = gen_p_envio();
 		private Input ()
 		{
 			
@@ -20,6 +23,27 @@ namespace KRCCSim
 			{
 				return instancia;
 			}
+		}
+		private static Dictionary<string, string> gen_reemplazos()
+		{
+			//Leer XLS de reemplazos (o definirlos extensivamente)
+			Dictionary<string, string> r = new Dictionary<string, string>();
+			r.Add ("E903","E903");
+			return r;
+		}
+		private static Dictionary<string, double> gen_t_vida()
+		{
+			Dictionary<string, double> t = new Dictionary<string, double>();
+			t.Add ("E903", 20000);
+			t.Add ("E803", 2000);
+			return t;
+		}
+		private static Dictionary<string, double> gen_p_envio()
+		{
+			Dictionary<string, double> p = new Dictionary<string, double>();
+			p.Add ("Tarjeta 104", 0.5);
+			p.Add ("Parrilla", 1);
+			return p;
 		}
 		/// <summary>
 		/// Aqui va la magia de leer el XLS
