@@ -37,8 +37,11 @@ namespace KRCCSim
 			generar_siguiente_tiempo(this.tiempo_vida);
 			
 			//También, aquí se crean los componentes asociados al camión
-			componente_camion = Input.tasa_falla_componentes[tipo_camion];
-			
+            //componente_camion = Input.tasa_falla_componentes[tipo_camion];
+            componente_camion = null
+            throw new NotImplementedException();
+            //Alamos he cambiado la estructura del input, favor revísalo
+
 			//Se crean los componentes, se les asignan los tiempos
 			foreach (var par in componente_camion)
 			{

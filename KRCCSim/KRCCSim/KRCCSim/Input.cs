@@ -10,10 +10,11 @@ namespace KRCCSim
 	public sealed class Input
 	{
 		private static readonly Input instancia = new Input();
-        public static Dictionary<string, Dictionary<string, double[]>> tasa_falla_componentes; // tiene la info de la tasa de falla por componente
+        public static Dictionary<string, Dictionary<string[], double[]>> tasa_falla_componentes; //string=[camion,componente] double[varianza,esperanzas año i]
+        public static Dictionary<string[], double> componentes_por_camion; //string=[camion,componente] double es la cantidad
         public static Dictionary<string, string> reemplazo; //tiene la info de que camion se reemplaza por cual
         public static Dictionary<string[], double[]> tiempo_vida_camion; //string=[faena,camion], double=[hrs restantes, hrs trabajo anuales]
-        public static Dictionary<string, double> probabilidad_envio; //tiene la info de la probabilidad de envio a KRCC
+        public static Dictionary<string[], double> probabilidad_envio; //string=[faena,componente], double = probabilidad de envio a KRCC
         public static Dictionary<string, double> mortalidad; //tiene la info de la tasa de mortalidad de un componente
         public static Dictionary<string, double> ponderadores; //tiene la info del ponderador usado para cada faena
         public static Dictionary<string[], double[]> ingresos_programados; //string=[faena,camion], double=[hrs restantes, hrs trabajo anuales,hora ingreso] 
@@ -32,12 +33,15 @@ namespace KRCCSim
 		}
 
         public static void Inicializar(string ruta_faenas, string ruta_probabilidad_envio, string ruta_ingresos_programados, string ruta_reemplazos,
-            string ruta_mortalidad, string ruta_componentes, string ruta_ponderadores)
+            string ruta_mortalidad, string ruta_componentes, string ruta_ponderadores, string ruta_componentes_camion)
         {
             reemplazo = gen_reemplazos(ruta_reemplazos);
             ponderadores = gen_ponderadores(ruta_ponderadores);
             tiempo_vida_camion = gen_t_vida(ruta_faenas);
             ingresos_programados = gen_ingreso_programado(ruta_ingresos_programados);
+            mortalidad = gen_mortalidad(ruta_mortalidad);
+            probabilidad_envio = gen_p_envio(ruta_probabilidad_envio);
+            componentes_por_camion = gen_componentes_camion(ruta_componentes_camion);
         }
 
 
@@ -50,10 +54,6 @@ namespace KRCCSim
             string [] input_file = File.ReadAllLines(ruta_reemplazos);
             for (int i=0;i<input_file.Length;i++)
             {
-                int auxiliar = input_file[i].IndexOf(",,");
-                if (auxiliar >= 0)
-                    input_file[i] = input_file[i].Remove(auxiliar, 2);
-
                 string[] original_cambio = input_file[i].Split(',');
                 if (i > 0)
                 {
@@ -69,10 +69,6 @@ namespace KRCCSim
             string[] input_file = File.ReadAllLines(ruta_ponderadores);
             for (int i = 0; i < input_file.Length; i++)
             {
-                int auxiliar = input_file[i].IndexOf(",,");
-                if (auxiliar>=0)
-                    input_file[i] = input_file[i].Remove(auxiliar, 2);
-
                 string[] faena_ponderador = input_file[i].Split(',');
                 if (i > 0)
                 {
@@ -88,10 +84,6 @@ namespace KRCCSim
             string[] input_file = File.ReadAllLines(ruta_faenas);
             for (int i = 0; i < input_file.Length; i++)
             {
-                int auxiliar = input_file[i].IndexOf(",,");
-                if (auxiliar>=0)
-                    input_file[i] = input_file[i].Remove(auxiliar, 2);
-
                 string[] datos_entrada = input_file[i].Split(',');
                 if (i > 0)
                 {
@@ -117,10 +109,6 @@ namespace KRCCSim
             string[] input_file = File.ReadAllLines(ruta_faenas);
             for (int i = 0; i < input_file.Length; i++)
             {
-                int auxiliar = input_file[i].IndexOf(",,");
-                if (auxiliar >= 0)
-                    input_file[i] = input_file[i].Remove(auxiliar, 2);
-
                 string[] datos_entrada = input_file[i].Split(',');
                 if (i > 0)
                 {
@@ -141,13 +129,86 @@ namespace KRCCSim
             return r;
         }
 
-		private static Dictionary<string, double> gen_p_envio(string a)
+        private static Dictionary<string, double> gen_mortalidad(string ruta_mortalidad)
+        {
+            Dictionary<string, double> r = new Dictionary<string, double>();
+            string[] input_file = File.ReadAllLines(ruta_mortalidad);
+            for (int i = 0; i < input_file.Length; i++)
+            {
+                string[] faena_ponderador = input_file[i].Split(',');
+                if (i > 0)
+                {
+                    r.Add(faena_ponderador[0], double.Parse(faena_ponderador[1], System.Globalization.CultureInfo.InvariantCulture));
+                }
+            }
+            return r;
+        }
+
+		private static Dictionary<string[], double> gen_p_envio(string ruta_probabilidad_envio)
 		{
-			Dictionary<string, double> p = new Dictionary<string, double>();
-			p.Add ("Tarjeta 104", 0.5);
-			p.Add ("Parrilla", 1);
-			return p;
+            Dictionary<string[], double> r = new Dictionary<string[], double>();
+            string[] input_file = File.ReadAllLines(ruta_probabilidad_envio);
+            string[] faenas = null;
+            for (int i = 0; i < input_file.Length; i++)
+            {
+                string[] datos_entrada = input_file[i].Split(',');
+                
+
+                if (i > 0)
+                {
+                    for (int j = 1; j < faenas.Length; j++)
+                    {
+                        string[] aux_string = new string[2];
+
+                        aux_string[0] = faenas[j];
+                        aux_string[1] = datos_entrada[0];
+
+                        double aux_double = double.Parse(datos_entrada[j], System.Globalization.CultureInfo.InvariantCulture);
+
+                        r.Add(aux_string, aux_double);
+                    }
+                }
+                else
+                {
+                    faenas = datos_entrada;
+                }
+
+            }
+            return r;
 		}
+
+        private static Dictionary<string[], double> gen_componentes_camion(string ruta_componentes_camion)
+        {
+            Dictionary<string[], double> r = new Dictionary<string[], double>();
+            string[] input_file = File.ReadAllLines(ruta_componentes_camion);
+            string[] faenas = null;
+            for (int i = 0; i < input_file.Length; i++)
+            {
+                string[] datos_entrada = input_file[i].Split(',');
+
+
+                if (i > 0)
+                {
+                    for (int j = 1; j < faenas.Length; j++)
+                    {
+                        string[] aux_string = new string[2];
+
+                        aux_string[0] = faenas[j];
+                        aux_string[1] = datos_entrada[0];
+
+                        double aux_double = double.Parse(datos_entrada[j], System.Globalization.CultureInfo.InvariantCulture);
+
+                        r.Add(aux_string, aux_double);
+                    }
+                }
+                else
+                {
+                    faenas = datos_entrada;
+                }
+
+            }
+            return r;
+        }
 
 		private static Dictionary<string, Dictionary<string, double[]>> leer_xls(string a)
 		{

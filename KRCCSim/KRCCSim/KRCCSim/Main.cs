@@ -8,9 +8,12 @@ namespace KRCCSim
 		public static void Main (string[] args)
 		{
             Input.Inicializar(@"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_Faenas.csv", 
-                null, @"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_ingresos_programados.csv",
+                @"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\input_probabilidad envio.csv",
+                @"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_ingresos_programados.csv",
                 @"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_reemplazos.csv",
-                null, null, @"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_ponderadores.csv");
+                @"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_mortalidad.csv",
+                null, @"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_ponderadores.csv",
+                @"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_componentes_por_camion.csv");
 
 			//Agregar una faena de prueba
 			Controlador c = new Controlador(1000);
