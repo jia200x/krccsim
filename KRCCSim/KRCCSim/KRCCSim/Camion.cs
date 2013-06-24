@@ -38,7 +38,7 @@ namespace KRCCSim
 			
 			//También, aquí se crean los componentes asociados al camión
             //componente_camion = Input.tasa_falla_componentes[tipo_camion];
-            componente_camion = null
+            componente_camion = null;
             throw new NotImplementedException();
             //Alamos he cambiado la estructura del input, favor revísalo
 
