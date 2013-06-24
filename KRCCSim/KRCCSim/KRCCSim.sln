@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KRCCSim", "KRCCSim\KRCCSim.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controlador", "Controlador\Controlador.csproj", "{37FC5210-5A1D-4C3F-8F0E-3C099D65ACA1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RNG", "RNG\RNG.csproj", "{425B2CE2-68C7-4469-A661-43CFC3C91CBA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,11 +37,23 @@ Global
 		{37FC5210-5A1D-4C3F-8F0E-3C099D65ACA1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{37FC5210-5A1D-4C3F-8F0E-3C099D65ACA1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{37FC5210-5A1D-4C3F-8F0E-3C099D65ACA1}.Release|x86.ActiveCfg = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
+		{425B2CE2-68C7-4469-A661-43CFC3C91CBA}.Debug|Any CPU.ActiveCfg = Debug|Mixed Platforms
+		{425B2CE2-68C7-4469-A661-43CFC3C91CBA}.Debug|Any CPU.Build.0 = Debug|Mixed Platforms
+		{425B2CE2-68C7-4469-A661-43CFC3C91CBA}.Debug|Mixed Platforms.ActiveCfg = Debug|Mixed Platforms
+		{425B2CE2-68C7-4469-A661-43CFC3C91CBA}.Debug|Mixed Platforms.Build.0 = Debug|Mixed Platforms
+		{425B2CE2-68C7-4469-A661-43CFC3C91CBA}.Debug|x86.ActiveCfg = Debug|Mixed Platforms
+		{425B2CE2-68C7-4469-A661-43CFC3C91CBA}.Debug|x86.Build.0 = Debug|Mixed Platforms
+		{425B2CE2-68C7-4469-A661-43CFC3C91CBA}.Release|Any CPU.ActiveCfg = Release|Mixed Platforms
+		{425B2CE2-68C7-4469-A661-43CFC3C91CBA}.Release|Any CPU.Build.0 = Release|Mixed Platforms
+		{425B2CE2-68C7-4469-A661-43CFC3C91CBA}.Release|Mixed Platforms.ActiveCfg = Release|Mixed Platforms
+		{425B2CE2-68C7-4469-A661-43CFC3C91CBA}.Release|Mixed Platforms.Build.0 = Release|Mixed Platforms
+		{425B2CE2-68C7-4469-A661-43CFC3C91CBA}.Release|x86.ActiveCfg = Release|Mixed Platforms
+		{425B2CE2-68C7-4469-A661-43CFC3C91CBA}.Release|x86.Build.0 = Release|Mixed Platforms
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = KRCCSim\KRCCSim.csproj
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
