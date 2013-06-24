@@ -10,7 +10,7 @@ namespace KRCCSim
 	public sealed class Input
 	{
 		private static readonly Input instancia = new Input();
-        public static Dictionary<string, Dictionary<string[], double[]>> tasa_falla_componentes; //string=[camion,componente] double[varianza,esperanzas año i]
+        public static Dictionary<string[], double[]> tasa_falla_componentes; //string=[camion,componente] double[varianza,esperanzas año i]
         public static Dictionary<string[], double> componentes_por_camion; //string=[camion,componente] double es la cantidad
         public static Dictionary<string, string> reemplazo; //tiene la info de que camion se reemplaza por cual
         public static Dictionary<string[], double[]> tiempo_vida_camion; //string=[faena,camion], double=[hrs restantes, hrs trabajo anuales]
@@ -33,7 +33,7 @@ namespace KRCCSim
 		}
 
         public static void Inicializar(string ruta_faenas, string ruta_probabilidad_envio, string ruta_ingresos_programados, string ruta_reemplazos,
-            string ruta_mortalidad, string ruta_componentes, string ruta_ponderadores, string ruta_componentes_camion)
+            string ruta_mortalidad, string ruta_falla_componentes, string ruta_ponderadores, string ruta_componentes_camion)
         {
             reemplazo = gen_reemplazos(ruta_reemplazos);
             ponderadores = gen_ponderadores(ruta_ponderadores);
@@ -42,6 +42,7 @@ namespace KRCCSim
             mortalidad = gen_mortalidad(ruta_mortalidad);
             probabilidad_envio = gen_p_envio(ruta_probabilidad_envio);
             componentes_por_camion = gen_componentes_camion(ruta_componentes_camion);
+            tasa_falla_componentes = gen_tasa_falla_componente(ruta_falla_componentes);
         }
 
 
@@ -181,7 +182,29 @@ namespace KRCCSim
         {
             Dictionary<string[], double> r = new Dictionary<string[], double>();
             string[] input_file = File.ReadAllLines(ruta_componentes_camion);
-            string[] faenas = null;
+            for (int i = 0; i < input_file.Length; i++)
+            {
+                string[] datos_entrada = input_file[i].Split(',');
+                if (i > 0)
+                {
+                    string[] aux_string = new string[2];
+
+                    aux_string[0] = datos_entrada[0];
+                    aux_string[1] = datos_entrada[1];
+
+                    double aux_double = double.Parse(datos_entrada[2], System.Globalization.CultureInfo.InvariantCulture);
+
+                    r.Add(aux_string, aux_double);
+                }
+
+            }
+            return r;
+        }
+
+		private static Dictionary<string[], double[]> gen_tasa_falla_componente(string ruta_falla_componentes)
+		{
+            Dictionary<string[], double[]> r = new Dictionary<string[], double[]>();
+            string[] input_file = File.ReadAllLines(ruta_falla_componentes);
             for (int i = 0; i < input_file.Length; i++)
             {
                 string[] datos_entrada = input_file[i].Split(',');
@@ -189,40 +212,24 @@ namespace KRCCSim
 
                 if (i > 0)
                 {
-                    for (int j = 1; j < faenas.Length; j++)
+                    string[] aux_string = new string[2];
+                    aux_string[0] = datos_entrada[0];
+                    aux_string[1] = datos_entrada[1];
+
+                    double[] aux_double = new double[datos_entrada.Length - 2];
+
+                    for (int j = 2; j < datos_entrada.Length; j++)
                     {
-                        string[] aux_string = new string[2];
+                        aux_double[j-2] = double.Parse(datos_entrada[j], System.Globalization.CultureInfo.InvariantCulture);
 
-                        aux_string[0] = faenas[j];
-                        aux_string[1] = datos_entrada[0];
-
-                        double aux_double = double.Parse(datos_entrada[j], System.Globalization.CultureInfo.InvariantCulture);
-
-                        r.Add(aux_string, aux_double);
+                        
                     }
+                    r.Add(aux_string, aux_double);
                 }
-                else
-                {
-                    faenas = datos_entrada;
-                }
-
             }
             return r;
-        }
-
-		private static Dictionary<string, Dictionary<string, double[]>> leer_xls(string a)
-		{
-			//Datos de prueba
-			//Se crean las tasas de falla para el camion E903
-			Dictionary<string, double[]> componente_edad_E903 = new Dictionary<string, double[]>();
-			double [] fe_E903_T104 = new double[] {2,2,1.8, 1.5};
-			componente_edad_E903.Add ("Tarjeta 104",fe_E903_T104);
-			double [] fe_E903_parrilla = new double[] {3,2,7, 0.1,0.7};
-			componente_edad_E903.Add ("Parrilla", fe_E903_parrilla);
-			Dictionary<string, Dictionary<string, double[]>> camiones = new Dictionary<string, Dictionary<string, double[]>>();
-			camiones.Add ("E903",componente_edad_E903);
-			return camiones;
 		}
+
 	}
 }
 
