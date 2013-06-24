@@ -1,0 +1,5 @@
+C:\Users\Felipe\Documents\GitHub\krccsim\KRCCSim\KRCCSim\RNG\bin\Debug\RNG.exe
+C:\Users\Felipe\Documents\GitHub\krccsim\KRCCSim\KRCCSim\RNG\bin\Debug\RNG.pdb
+C:\Users\Felipe\Documents\GitHub\krccsim\KRCCSim\KRCCSim\RNG\obj\Mixed Platforms\Debug\ResolveAssemblyReference.cache
+C:\Users\Felipe\Documents\GitHub\krccsim\KRCCSim\KRCCSim\RNG\obj\Mixed Platforms\Debug\RNG.exe
+C:\Users\Felipe\Documents\GitHub\krccsim\KRCCSim\KRCCSim\RNG\obj\Mixed Platforms\Debug\RNG.pdb

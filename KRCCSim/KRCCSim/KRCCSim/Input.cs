@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace KRCCSim
 {
@@ -11,10 +12,12 @@ namespace KRCCSim
 		private static readonly Input instancia = new Input();
         public static Dictionary<string, Dictionary<string, double[]>> tasa_falla_componentes; // tiene la info de la tasa de falla por componente
         public static Dictionary<string, string> reemplazo; //tiene la info de que camion se reemplaza por cual
-        public static Dictionary<string, double> tiempo_vida_camion; //cuantas horas de vida la quedan al camion
+        public static Dictionary<string, double[]> tiempo_vida_camion; //cuantas horas de vida la quedan al camion y su tasa de trabajo
         public static Dictionary<string, double> probabilidad_envio; //tiene la info de la probabilidad de envio a KRCC
         public static Dictionary<string, double> mortalidad; //tiene la info de la tasa de mortalidad de un componente
         public static Dictionary<string, double> ponderadores; //tiene la info del ponderador usado para cada faena
+        
+
 
 		private Input ()
 		{
@@ -29,27 +32,35 @@ namespace KRCCSim
 			}
 		}
 
-        public void Inicializar(string ruta_faenas, string ruta_probabilidad_envio, string ruta_ingresos_programados, string ruta_reemplazos,
+        public static void Inicializar(string ruta_faenas, string ruta_probabilidad_envio, string ruta_ingresos_programados, string ruta_reemplazos,
             string ruta_mortalidad, string ruta_componentes)
         {
             reemplazo = gen_reemplazos(ruta_reemplazos);
+            tiempo_vida_camion = gen_t_vida(ruta_faenas);
         }
 
 
 
-		private static Dictionary<string, string> gen_reemplazos(string a)
+		private static Dictionary<string, string> gen_reemplazos(string ruta_reemplazos)
 		{
 			//Leer XLS de reemplazos (o definirlos extensivamente)
+            string [] input_file = File.ReadAllLines(ruta_reemplazos);
+            for (int i=0;i<input_file.Length;i++)
+            {
+                input_file[i] = input_file[i].Remove(input_file[i].IndexOf(",,"), 2);
+            }
+
+
 			Dictionary<string, string> r = new Dictionary<string, string>();
 			r.Add ("E903","E903");
 			return r;
 		}
-		private static Dictionary<string, double> gen_t_vida(string a)
+		private static Dictionary<string, double[]> gen_t_vida(string a)
 		{
 			Dictionary<string, double> t = new Dictionary<string, double>();
 			t.Add ("E903", 20000);
 			t.Add ("E803", 2000);
-			return t;
+            return null;
 		}
 		private static Dictionary<string, double> gen_p_envio(string a)
 		{
