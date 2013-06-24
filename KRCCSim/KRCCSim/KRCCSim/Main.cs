@@ -7,7 +7,8 @@ namespace KRCCSim
 	{
 		public static void Main (string[] args)
 		{
-            Input.Inicializar(null,null,null,@"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_reemplazos.csv",null,null);
+            Input.Inicializar(null, null, null, @"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_reemplazos.csv",
+                null, null, @"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_ponderadores.csv");
 
 			//Agregar una faena de prueba
 			Controlador c = new Controlador(1000);
