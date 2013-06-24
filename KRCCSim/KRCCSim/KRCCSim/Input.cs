@@ -9,14 +9,18 @@ namespace KRCCSim
 	public sealed class Input
 	{
 		private static readonly Input instancia = new Input();
-		public static readonly Dictionary<string, Dictionary<string, double[]>> datos = leer_xls();
-		public static readonly Dictionary<string, string> reemplazo = gen_reemplazos();
-		public static readonly Dictionary<string, double> tiempo_vida_camion = gen_t_vida();
-		public static readonly Dictionary<string, double> probabilidad_envio = gen_p_envio();
+        public static Dictionary<string, Dictionary<string, double[]>> tasa_falla_componentes; // tiene la info de la tasa de falla por componente
+        public static Dictionary<string, string> reemplazo; //tiene la info de que camion se reemplaza por cual
+        public static Dictionary<string, double> tiempo_vida_camion; //cuantas horas de vida la quedan al camion
+        public static Dictionary<string, double> probabilidad_envio; //tiene la info de la probabilidad de envio a KRCC
+        public static Dictionary<string, double> mortalidad; //tiene la info de la tasa de mortalidad de un componente
+        public static Dictionary<string, double> ponderadores; //tiene la info del ponderador usado para cada faena
+
 		private Input ()
 		{
 			
 		}
+
 		public static Input Instancia
 		{
 			get
@@ -24,31 +28,37 @@ namespace KRCCSim
 				return instancia;
 			}
 		}
-		private static Dictionary<string, string> gen_reemplazos()
+
+        public void Inicializar(string ruta_faenas, string ruta_probabilidad_envio, string ruta_ingresos_programados, string ruta_reemplazos,
+            string ruta_mortalidad, string ruta_componentes)
+        {
+            reemplazo = gen_reemplazos(ruta_reemplazos);
+        }
+
+
+
+		private static Dictionary<string, string> gen_reemplazos(string a)
 		{
 			//Leer XLS de reemplazos (o definirlos extensivamente)
 			Dictionary<string, string> r = new Dictionary<string, string>();
 			r.Add ("E903","E903");
 			return r;
 		}
-		private static Dictionary<string, double> gen_t_vida()
+		private static Dictionary<string, double> gen_t_vida(string a)
 		{
 			Dictionary<string, double> t = new Dictionary<string, double>();
 			t.Add ("E903", 20000);
 			t.Add ("E803", 2000);
 			return t;
 		}
-		private static Dictionary<string, double> gen_p_envio()
+		private static Dictionary<string, double> gen_p_envio(string a)
 		{
 			Dictionary<string, double> p = new Dictionary<string, double>();
 			p.Add ("Tarjeta 104", 0.5);
 			p.Add ("Parrilla", 1);
 			return p;
 		}
-		/// <summary>
-		/// Aqui va la magia de leer el XLS
-		/// </summary>
-		private static Dictionary<string, Dictionary<string, double[]>> leer_xls()
+		private static Dictionary<string, Dictionary<string, double[]>> leer_xls(string a)
 		{
 			//Datos de prueba
 			//Se crean las tasas de falla para el camion E903
