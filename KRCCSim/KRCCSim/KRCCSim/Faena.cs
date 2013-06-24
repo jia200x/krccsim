@@ -8,6 +8,7 @@ namespace KRCCSim
 {
 	public class Faena:Evento
 	{
+        public string Nombre;
         public List<Camion> camiones;
 		public List<Componente> batch;
 		//Ponderador de condiciones de la mina, por faena

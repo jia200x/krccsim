@@ -23,8 +23,13 @@ namespace KRCCSim
 			this.faena.agregar_camion(this);
 			this.c = c;
 			this.tiempo_creacion = c.T_simulacion;
-            double[] auxiliar = Input.tiempo_vida_camion[tipo_camion];
-            this.tiempo_vida = auxiliar[0];
+
+            string[] auxiliar = new string[2];
+            auxiliar[0] = faena.Nombre;
+            auxiliar[1] = tipo_camion;
+            double[] aux = Input.tiempo_vida_camion[auxiliar];
+            this.tiempo_vida = aux[0];
+
 			this.muerto = false;
 			this.tipo_camion = tipo_camion;
 			
@@ -64,8 +69,13 @@ namespace KRCCSim
 		{
 			componentes.Remove(defectuoso);
 			//Con probabilidad P se agrega al batch...
-            double[] auxiliar = Input.tiempo_vida_camion[tipo_camion];
-            double probabilidad = auxiliar[0];
+
+            string[] auxiliar = new string[2];
+            auxiliar[0] = faena.Nombre;
+            auxiliar[1] = tipo_camion;
+            double[] aux = Input.tiempo_vida_camion[auxiliar];
+            double probabilidad = aux[0];
+
 			faena.agregar_a_batch(defectuoso);		
 			
 			//Agregar el componente nuevo

@@ -16,9 +16,8 @@ namespace KRCCSim
         public static Dictionary<string, double> probabilidad_envio; //tiene la info de la probabilidad de envio a KRCC
         public static Dictionary<string, double> mortalidad; //tiene la info de la tasa de mortalidad de un componente
         public static Dictionary<string, double> ponderadores; //tiene la info del ponderador usado para cada faena
+        public static Dictionary<string[], double[]> ingresos_programados; //string=[faena,camion], double=[hrs restantes, hrs trabajo anuales,hora ingreso] 
         
-
-
 		private Input ()
 		{
 			
@@ -38,6 +37,7 @@ namespace KRCCSim
             reemplazo = gen_reemplazos(ruta_reemplazos);
             ponderadores = gen_ponderadores(ruta_ponderadores);
             tiempo_vida_camion = gen_t_vida(ruta_faenas);
+            ingresos_programados = gen_ingreso_programado(ruta_ingresos_programados);
         }
 
 
@@ -76,15 +76,15 @@ namespace KRCCSim
                 string[] faena_ponderador = input_file[i].Split(',');
                 if (i > 0)
                 {
-                    r.Add(faena_ponderador[0], double.Parse(faena_ponderador[1]));
+                    r.Add(faena_ponderador[0], double.Parse(faena_ponderador[1], System.Globalization.CultureInfo.InvariantCulture));
                 }
             }
             return r;
         }
 
-		private static Dictionary<string, double[]> gen_t_vida(string ruta_faenas)
+		private static Dictionary<string[], double[]> gen_t_vida(string ruta_faenas)
 		{
-            Dictionary<string, double[]> r = new Dictionary<string, double[]>();
+            Dictionary<string[], double[]> r = new Dictionary<string[], double[]>();
             string[] input_file = File.ReadAllLines(ruta_faenas);
             for (int i = 0; i < input_file.Length; i++)
             {
@@ -96,13 +96,50 @@ namespace KRCCSim
                 if (i > 0)
                 {
                     string[] aux_string = new string[2];
-                    string[] aux_double = new double[2];
+                    double[] aux_double = new double[2];
 
+                    aux_string[0] = datos_entrada[0];
+                    aux_string[1] = datos_entrada[1];
+
+                    aux_double[0] = double.Parse(datos_entrada[2], System.Globalization.CultureInfo.InvariantCulture);
+                    aux_double[1] = double.Parse(datos_entrada[3], System.Globalization.CultureInfo.InvariantCulture);
+
+                    r.Add(aux_string,aux_double);
                 }
+
             }
             return r;
 		}
 
+        private static Dictionary<string[], double[]> gen_ingreso_programado(string ruta_faenas)
+        {
+            Dictionary<string[], double[]> r = new Dictionary<string[], double[]>();
+            string[] input_file = File.ReadAllLines(ruta_faenas);
+            for (int i = 0; i < input_file.Length; i++)
+            {
+                int auxiliar = input_file[i].IndexOf(",,");
+                if (auxiliar >= 0)
+                    input_file[i] = input_file[i].Remove(auxiliar, 2);
+
+                string[] datos_entrada = input_file[i].Split(',');
+                if (i > 0)
+                {
+                    string[] aux_string = new string[2];
+                    double[] aux_double = new double[3];
+
+                    aux_string[0] = datos_entrada[0];
+                    aux_string[1] = datos_entrada[1];
+
+                    aux_double[0] = double.Parse(datos_entrada[2], System.Globalization.CultureInfo.InvariantCulture);
+                    aux_double[1] = double.Parse(datos_entrada[3], System.Globalization.CultureInfo.InvariantCulture);
+                    aux_double[2] = double.Parse(datos_entrada[4], System.Globalization.CultureInfo.InvariantCulture);
+
+                    r.Add(aux_string, aux_double);
+                }
+
+            }
+            return r;
+        }
 
 		private static Dictionary<string, double> gen_p_envio(string a)
 		{
@@ -111,6 +148,7 @@ namespace KRCCSim
 			p.Add ("Parrilla", 1);
 			return p;
 		}
+
 		private static Dictionary<string, Dictionary<string, double[]>> leer_xls(string a)
 		{
 			//Datos de prueba
@@ -124,7 +162,6 @@ namespace KRCCSim
 			camiones.Add ("E903",componente_edad_E903);
 			return camiones;
 		}
-		
 	}
 }
 
