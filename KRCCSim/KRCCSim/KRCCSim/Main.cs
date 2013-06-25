@@ -13,6 +13,7 @@ namespace KRCCSim
                 @"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_ingresos_programados.csv",
                 @"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_reemplazos.csv",
                 @"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_mortalidad.csv",
+<<<<<<< HEAD
                 null, @"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_ponderadores.csv",
                 @"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_componentes_por_camion.csv");*/
 			
@@ -23,6 +24,11 @@ namespace KRCCSim
                 ruta_root+"Input_mortalidad.csv",
                 ruta_root+"Input_falla_componentes.csv", ruta_root+"Input_ponderadores.csv",
                 ruta_root+"Input_componentes_por_camion.csv");
+=======
+                @"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_falla_componentes.csv",
+                @"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_ponderadores.csv",
+                @"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_componentes_por_camion.csv");
+>>>>>>> 99b2f7ca29e89eec41319da874e96d4174647f29
 
 			//Agregar una faena de prueba
 			Controlador c = new Controlador(1000);

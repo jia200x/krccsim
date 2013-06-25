@@ -32,6 +32,10 @@ namespace KRCCSim
 			this.tiempo_vida = aux[0];
 			//Corregir!!
 			this.tiempo_creacion = 0;
+            //cambie los dictrionaries
+            throw new NotFiniteNumberException();
+            //double[] aux = Input.tiempo_vida_camion[auxiliar];
+            //this.tiempo_vida = aux[0];
 
 			this.muerto = false;
 			this.tipo_camion = tipo_camion;
@@ -80,6 +84,8 @@ namespace KRCCSim
             double probabilidad = aux[0];
 			//Con probabilidad P se agrega al batch...
 			if (RNGen.Unif(0,1) <= probabilidad) faena.agregar_a_batch(defectuoso);		
+            //cambie los dictrionaries
+            throw new NotFiniteNumberException();
 			
 			//Agregar el componente nuevo
 			agregar_componente(new Componente(this.c, this, defectuoso.tipo_componente, Input.tasa_falla_componentes[new string[]{this.tipo_camion,defectuoso.tipo_componente}]));
