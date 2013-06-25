@@ -7,8 +7,8 @@ namespace KRCCSim
 {
     public class Dato
     {
-        string[] arr_string;
-        double[] arr_double;
+        public string[] arr_string;
+        public double[] arr_double;
 
         public Dato(string[] arr_string, double[] arr_double)
         {

@@ -12,9 +12,10 @@ namespace KRCCSim
         public List<Componente> componentes;
         public double tiempo_actual, tiempo_max;
         public Faena faena;
-		private double tiempo_vida;
+		private double tasa_trabajo;
 		public string tipo_camion;
-		public double tiempo_creacion;
+		private double tiempo_inicializacion;
+		private double tiempo_restante;
 		public bool muerto;
 		public Dictionary<string, double[]> componente_camion;
 		public Camion(Controlador c, Faena faena, string tipo_camion)
@@ -24,24 +25,11 @@ namespace KRCCSim
 			this.faena.agregar_camion(this);
 			this.c = c;
 
-            string[] auxiliar = new string[2];
-            auxiliar[0] = faena.Nombre;
-            auxiliar[1] = tipo_camion;
-            double[] aux = Input.tiempo_vida_camion[auxiliar];
-			//Sumarle el tiempo actual
-			this.tiempo_vida = aux[0];
-			//Corregir!!
-			this.tiempo_creacion = 0;
-            //cambie los dictrionaries
-            throw new NotFiniteNumberException();
-            //double[] aux = Input.tiempo_vida_camion[auxiliar];
-            //this.tiempo_vida = aux[0];
-
 			this.muerto = false;
 			this.tipo_camion = tipo_camion;
 			
 			//Aquí se suscribe el reemplazo de camión
-			generar_siguiente_tiempo(this.tiempo_vida);
+			generar_siguiente_tiempo(this.tiempo_restante);
 			
 			//También, aquí se crean los componentes asociados al camión
             //componente_camion = Input.tasa_falla_componentes[tipo_camion];
@@ -50,14 +38,20 @@ namespace KRCCSim
 			//Se crean los componentes, se les asignan los tiempos
 			foreach (var par in Input.tasa_falla_componentes[tipo_camion])
 			{
-				for (int i=0;i<Input.componentes_por_camion[this.tipo_camion][par.Key];i++)
+				for (int i=0;i<Input.componentes_por_camion[this.tipo_camion].arr_double[0];i++)
 				{
-					Componente componente = new Componente(this.c, this, par.Key,par.Value);
+					Componente componente = new Componente(this.c, this, par.arr_string[0],par.arr_double);
 					this.agregar_componente(componente);
 				}
 			}
 			
 			
+		}
+		public void actualizar_tiempos(double tasa_trabajo, double t_restante, double t_init)
+		{
+			this.tasa_trabajo = tasa_trabajo;
+			this.tiempo_restante = t_restante;
+			this.tiempo_inicializacion = t_init;
 		}
 		public override void realizar_cambio()
 		{

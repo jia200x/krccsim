@@ -10,11 +10,11 @@ namespace KRCCSim
 	public sealed class Input
 	{
 		private static readonly Input instancia = new Input();
-        public static Dictionary<string, Dato[]> tasa_falla_componentes; //string externo camion, interno componente double[varianza,esperanzas año i]
-        public static Dictionary<string, Dato[]> componentes_por_camion; //string externo camion interno componente double es la cantidad
+        public static Dictionary<string, Dato[]> tasa_falla_componentes; //DICT string externo camion, interno componente double[varianza,esperanzas año i]
+        public static Dictionary<string, Dictionary<string,int>> componentes_por_camion; //DICTstring externo camion interno componente double es la cantidad
         public static Dictionary<string, string> reemplazo; //tiene la info de que camion se reemplaza por cual
         public static Dictionary<string, Dato[]> tiempo_vida_camion; //string externo faena interno camion, double=[hrs restantes, hrs trabajo anuales,hrs trabajadas]
-        public static Dictionary<string, Dato[]> probabilidad_envio; //string interno faena, externo componente, double = probabilidad de envio a KRCC
+        public static Dictionary<string, Dato[]> probabilidad_envio; //DICT string interno faena, externo componente, double = probabilidad de envio a KRCC
         public static Dictionary<string, double> mortalidad; //tiene la info de la tasa de mortalidad de un componente
         public static Dictionary<string, double> ponderadores; //tiene la info del ponderador usado para cada faena
         public static Dictionary<string, Dato[]> ingresos_programados; //string externo faena, interno camion, double=[hrs restantes, hrs trabajo anuales,hora ingreso] 
@@ -223,8 +223,8 @@ namespace KRCCSim
 
         private static Dictionary<string, Dato[]> gen_componentes_camion(string ruta_componentes_camion)
         {
-            Dictionary<string, Dato[]> externo = new Dictionary<string, Dato[]>();
-            List<Dato> lista = new List<Dato>();
+            Dictionary<string, Dictionary<string, int>> externo = new Dictionary<string, Dictionary<string,int>>();
+            Dictionary<string, int> lista = new Dictionary<string,int>();
             string[] input_file = File.ReadAllLines(ruta_componentes_camion);
             string ultima_dato_faena = null;
             for (int i = 0; i < input_file.Length; i++)
@@ -234,16 +234,16 @@ namespace KRCCSim
                 {
                     if (ultima_dato_faena != datos_entrada[0] && ultima_dato_faena != null)
                     {
-                        externo.Add(ultima_dato_faena, lista.ToArray());
+                        externo.Add(ultima_dato_faena, lista);
                         lista.Clear();
                     }
 
-                    string[] aux_string = new string[1];
-                    double[] aux_double = new double[1];
+                    string aux_string;
+                    int aux_int;
 
-                    aux_string[0] = datos_entrada[1];
+                    aux_string = datos_entrada[1];
 
-                    aux_double[0] = double.Parse(datos_entrada[2], System.Globalization.CultureInfo.InvariantCulture);
+                    aux_int = int.Parse(datos_entrada[2], System.Globalization.CultureInfo.InvariantCulture);
                     ultima_dato_faena = datos_entrada[0];
 
                     lista.Add(new Dato(aux_string, aux_double));

@@ -22,9 +22,10 @@ namespace KRCCSim
 			this.ponderador = Input.ponderadores[this.Nombre];
 			
 			//Se agregan los camiones por faena...
-			foreach (var par in Input.tiempo_vida_camion[this.Nombre])
+			foreach (var dato in Input.tiempo_vida_camion[this.Nombre])
 			{
-				Camion cam = new Camion(this.c, this, par.Key);
+				Camion cam = new Camion(this.c, this, dato.arr_string[0]);
+				cam.actualizar_tiempos(dato.arr_double[1], dato.arr_double[0], dato.arr_double[2]);
 			}
 			
 			//Solo por testing, la faena se reemplazará cada 70 unidades de tiempo
