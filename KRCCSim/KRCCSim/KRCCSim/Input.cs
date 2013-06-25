@@ -10,15 +10,16 @@ namespace KRCCSim
 	public sealed class Input
 	{
 		private static readonly Input instancia = new Input();
-        public static Dictionary<string[], double[]> tasa_falla_componentes; //string=[camion,componente] double[varianza,esperanzas año i]
-        public static Dictionary<string[], double> componentes_por_camion; //string=[camion,componente] double es la cantidad
+        public static Dictionary<string, Dato[]> tasa_falla_componentes; //string externo camion, interno componente double[varianza,esperanzas año i]
+        public static Dictionary<string, Dato[]> componentes_por_camion; //string externo camion interno componente double es la cantidad
         public static Dictionary<string, string> reemplazo; //tiene la info de que camion se reemplaza por cual
-        public static Dictionary<string[], double[]> tiempo_vida_camion; //string=[faena,camion], double=[hrs restantes, hrs trabajo anuales,hrs trabajadas]
-        public static Dictionary<string[], double> probabilidad_envio; //string=[faena,componente], double = probabilidad de envio a KRCC
+        public static Dictionary<string, Dato[]> tiempo_vida_camion; //string externo faena interno camion, double=[hrs restantes, hrs trabajo anuales,hrs trabajadas]
+        public static Dictionary<string, Dato[]> probabilidad_envio; //string interno faena, externo componente, double = probabilidad de envio a KRCC
         public static Dictionary<string, double> mortalidad; //tiene la info de la tasa de mortalidad de un componente
         public static Dictionary<string, double> ponderadores; //tiene la info del ponderador usado para cada faena
-        public static Dictionary<string[], double[]> ingresos_programados; //string=[faena,camion], double=[hrs restantes, hrs trabajo anuales,hora ingreso] 
-        
+        public static Dictionary<string, Dato[]> ingresos_programados; //string externo faena, interno camion, double=[hrs restantes, hrs trabajo anuales,hora ingreso] 
+
+
 		private Input ()
 		{
 			
@@ -79,56 +80,81 @@ namespace KRCCSim
             return r;
         }
 
-		private static Dictionary<string[], double[]> gen_t_vida(string ruta_faenas)
+        private static Dictionary<string, Dato[]> gen_t_vida(string ruta_faenas)
 		{
-            Dictionary<string[], double[]> r = new Dictionary<string[], double[]>();
+            Dictionary<string, Dato[]> externo = new Dictionary<string, Dato[]>();
+            string ultima_dato_faena = null;
+            List<Dato> lista = new List<Dato>();
+
             string[] input_file = File.ReadAllLines(ruta_faenas);
+
             for (int i = 0; i < input_file.Length; i++)
             {
                 string[] datos_entrada = input_file[i].Split(',');
                 if (i > 0)
                 {
-                    string[] aux_string = new string[2];
+                    if (ultima_dato_faena != datos_entrada[0] && ultima_dato_faena != null)
+                    {
+                        externo.Add(ultima_dato_faena,lista.ToArray());
+                        lista.Clear();
+                    }
+
+                    string[] aux_string = new string[1];
                     double[] aux_double = new double[3];
 
-                    aux_string[0] = datos_entrada[0];
-                    aux_string[1] = datos_entrada[1];
+                    aux_string[0] = datos_entrada[1];
 
                     aux_double[0] = double.Parse(datos_entrada[2], System.Globalization.CultureInfo.InvariantCulture);
                     aux_double[1] = double.Parse(datos_entrada[3], System.Globalization.CultureInfo.InvariantCulture);
                     aux_double[2] = double.Parse(datos_entrada[4], System.Globalization.CultureInfo.InvariantCulture);
 
-                    r.Add(aux_string,aux_double);
+                    ultima_dato_faena = datos_entrada[0];
+                    
+
+                    lista.Add(new Dato(aux_string,aux_double));
                 }
 
             }
-            return r;
+            externo.Add(ultima_dato_faena, lista.ToArray());
+            return externo;
 		}
 
-        private static Dictionary<string[], double[]> gen_ingreso_programado(string ruta_faenas)
+        private static Dictionary<string, Dato[]> gen_ingreso_programado(string ruta_faenas)
         {
-            Dictionary<string[], double[]> r = new Dictionary<string[], double[]>();
+            Dictionary<string, Dato[]> externo = new Dictionary<string, Dato[]>();
+            List<Dato> lista = new List<Dato>();
             string[] input_file = File.ReadAllLines(ruta_faenas);
+
+            string ultima_dato_faena = null;
+
             for (int i = 0; i < input_file.Length; i++)
             {
                 string[] datos_entrada = input_file[i].Split(',');
                 if (i > 0)
                 {
-                    string[] aux_string = new string[2];
+                    if (ultima_dato_faena != datos_entrada[0] && ultima_dato_faena != null)
+                    {
+                        externo.Add(ultima_dato_faena, lista.ToArray());
+                        lista.Clear();
+                    }
+
+                    string[] aux_string = new string[1];
                     double[] aux_double = new double[3];
 
-                    aux_string[0] = datos_entrada[0];
-                    aux_string[1] = datos_entrada[1];
+                    aux_string[0] = datos_entrada[1];
 
                     aux_double[0] = double.Parse(datos_entrada[2], System.Globalization.CultureInfo.InvariantCulture);
                     aux_double[1] = double.Parse(datos_entrada[3], System.Globalization.CultureInfo.InvariantCulture);
                     aux_double[2] = double.Parse(datos_entrada[4], System.Globalization.CultureInfo.InvariantCulture);
 
-                    r.Add(aux_string, aux_double);
+                    ultima_dato_faena = datos_entrada[0];
+
+                    lista.Add(new Dato(aux_string, aux_double));
                 }
 
             }
-            return r;
+            externo.Add(ultima_dato_faena, lista.ToArray());
+            return externo;
         }
 
         private static Dictionary<string, double> gen_mortalidad(string ruta_mortalidad)
@@ -146,11 +172,15 @@ namespace KRCCSim
             return r;
         }
 
-		private static Dictionary<string[], double> gen_p_envio(string ruta_probabilidad_envio)
+        private static Dictionary<string, Dato[]> gen_p_envio(string ruta_probabilidad_envio)
 		{
-            Dictionary<string[], double> r = new Dictionary<string[], double>();
+            Dictionary<string, Dato[]> externo = new Dictionary<string, Dato[]>();
+
+            Dictionary<string, List<Dato>> dictionary_aux = new Dictionary<string, List<Dato>>();
+
             string[] input_file = File.ReadAllLines(ruta_probabilidad_envio);
             string[] faenas = null;
+
             for (int i = 0; i < input_file.Length; i++)
             {
                 string[] datos_entrada = input_file[i].Split(',');
@@ -158,54 +188,79 @@ namespace KRCCSim
 
                 if (i > 0)
                 {
-                    for (int j = 1; j < faenas.Length; j++)
+                    for (int j = 1; j < datos_entrada.Length; j++)
                     {
-                        string[] aux_string = new string[2];
+                        string[] aux_string = new string[1];
 
-                        aux_string[0] = faenas[j];
-                        aux_string[1] = datos_entrada[0];
+                        aux_string[0] = datos_entrada[0];
 
-                        double aux_double = double.Parse(datos_entrada[j], System.Globalization.CultureInfo.InvariantCulture);
+                        double[] aux_double = new double[1];
+                        aux_double[0] = double.Parse(datos_entrada[j], System.Globalization.CultureInfo.InvariantCulture);
 
-                        r.Add(aux_string, aux_double);
+                        List<Dato> info_faenas = dictionary_aux[faenas[j-1]];
+
+                        info_faenas.Add(new Dato(aux_string, aux_double));
                     }
                 }
                 else
                 {
-                    faenas = datos_entrada;
+                    faenas = new string[datos_entrada.Length - 1];
+                    for (int j = 1; j < datos_entrada.Length; j++)
+                    {
+                        faenas[j - 1] = datos_entrada[j];
+                        List<Dato> info_faenas = new List<Dato>();
+                        dictionary_aux.Add(datos_entrada[j], info_faenas);
+                    }
                 }
 
             }
-            return r;
+
+            foreach (string j in faenas)
+            {
+                externo.Add(j, dictionary_aux[j].ToArray());
+            }
+            return externo;
 		}
 
-        private static Dictionary<string[], double> gen_componentes_camion(string ruta_componentes_camion)
+        private static Dictionary<string, Dato[]> gen_componentes_camion(string ruta_componentes_camion)
         {
-            Dictionary<string[], double> r = new Dictionary<string[], double>();
+            Dictionary<string, Dato[]> externo = new Dictionary<string, Dato[]>();
+            List<Dato> lista = new List<Dato>();
             string[] input_file = File.ReadAllLines(ruta_componentes_camion);
+            string ultima_dato_faena = null;
             for (int i = 0; i < input_file.Length; i++)
             {
                 string[] datos_entrada = input_file[i].Split(',');
                 if (i > 0)
                 {
-                    string[] aux_string = new string[2];
+                    if (ultima_dato_faena != datos_entrada[0] && ultima_dato_faena != null)
+                    {
+                        externo.Add(ultima_dato_faena, lista.ToArray());
+                        lista.Clear();
+                    }
 
-                    aux_string[0] = datos_entrada[0];
-                    aux_string[1] = datos_entrada[1];
+                    string[] aux_string = new string[1];
+                    double[] aux_double = new double[1];
 
-                    double aux_double = double.Parse(datos_entrada[2], System.Globalization.CultureInfo.InvariantCulture);
+                    aux_string[0] = datos_entrada[1];
 
-                    r.Add(aux_string, aux_double);
+                    aux_double[0] = double.Parse(datos_entrada[2], System.Globalization.CultureInfo.InvariantCulture);
+                    ultima_dato_faena = datos_entrada[0];
+
+                    lista.Add(new Dato(aux_string, aux_double));
                 }
 
             }
-            return r;
+            externo.Add(ultima_dato_faena, lista.ToArray());
+            return externo;
         }
 
-		private static Dictionary<string[], double[]> gen_tasa_falla_componente(string ruta_falla_componentes)
+        private static Dictionary<string, Dato[]> gen_tasa_falla_componente(string ruta_falla_componentes)
 		{
-            Dictionary<string[], double[]> r = new Dictionary<string[], double[]>();
+            Dictionary<string, Dato[]> externo = new Dictionary<string, Dato[]>();
+            List<Dato> lista = new List<Dato>();
             string[] input_file = File.ReadAllLines(ruta_falla_componentes);
+            string ultima_dato_faena = null;
             for (int i = 0; i < input_file.Length; i++)
             {
                 string[] datos_entrada = input_file[i].Split(',');
@@ -213,22 +268,30 @@ namespace KRCCSim
 
                 if (i > 0)
                 {
-                    string[] aux_string = new string[2];
-                    aux_string[0] = datos_entrada[0];
-                    aux_string[1] = datos_entrada[1];
+                    if (ultima_dato_faena != datos_entrada[0] && ultima_dato_faena != null)
+                    {
+                        externo.Add(ultima_dato_faena, lista.ToArray());
+                        lista.Clear();
+                    }
+
+                    string[] aux_string = new string[1];
+                    aux_string[0] = datos_entrada[1];
 
                     double[] aux_double = new double[datos_entrada.Length - 2];
 
                     for (int j = 2; j < datos_entrada.Length; j++)
                     {
                         aux_double[j-2] = double.Parse(datos_entrada[j], System.Globalization.CultureInfo.InvariantCulture);
-
-                        
                     }
-                    r.Add(aux_string, aux_double);
+
+                    ultima_dato_faena = datos_entrada[0];
+
+                    lista.Add(new Dato(aux_string, aux_double));
+
                 }
             }
-            return r;
+            externo.Add(ultima_dato_faena, lista.ToArray());
+            return externo;
 		}
 
 	}

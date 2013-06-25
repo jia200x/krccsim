@@ -27,8 +27,10 @@ namespace KRCCSim
             string[] auxiliar = new string[2];
             auxiliar[0] = faena.Nombre;
             auxiliar[1] = tipo_camion;
-            double[] aux = Input.tiempo_vida_camion[auxiliar];
-            this.tiempo_vida = aux[0];
+            //cambie los dictrionaries
+            throw new NotFiniteNumberException();
+            //double[] aux = Input.tiempo_vida_camion[auxiliar];
+            //this.tiempo_vida = aux[0];
 
 			this.muerto = false;
 			this.tipo_camion = tipo_camion;
@@ -76,8 +78,10 @@ namespace KRCCSim
             string[] auxiliar = new string[2];
             auxiliar[0] = faena.Nombre;
             auxiliar[1] = tipo_camion;
-            double[] aux = Input.tiempo_vida_camion[auxiliar];
-            double probabilidad = aux[0];
+            //cambie los dictrionaries
+            throw new NotFiniteNumberException();
+            //double[] aux = Input.tiempo_vida_camion[auxiliar];
+            //double probabilidad = aux[0];
 
 			faena.agregar_a_batch(defectuoso);		
 			
