@@ -32,6 +32,10 @@ namespace KRCCSim
 			//La falla depende de la edad del camión, del tipo de camión, de la faena y del componente en si.
 			//Toda esa información es rescatable dado que el componente sabe en que camión está.
 			//El componente tiene un arreglo de una dimensión que indica la tasa de falla beta con respecto a la edad del camión
+			
+			//Se tiene la varianza y la media en este punto
+			//INCLUIR EL PONDERADOR DE LA FAENA!!
+			throw new NotImplementedException();
 			return (double) 30;
 		}
     }

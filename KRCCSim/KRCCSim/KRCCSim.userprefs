@@ -4,18 +4,21 @@
     <Files>
       <File FileName="Controlador/Controlador.cs" Line="54" Column="33" />
       <File FileName="Controlador/Evento.cs" Line="26" Column="1" />
-      <File FileName="KRCCSim/Faena.cs" Line="32" Column="33" />
-      <File FileName="KRCCSim/Main.cs" Line="14" Column="12" />
-      <File FileName="KRCCSim/Componente.cs" Line="27" Column="35" />
+      <File FileName="KRCCSim/Faena.cs" Line="27" Column="50" />
+      <File FileName="KRCCSim/Main.cs" Line="32" Column="33" />
+      <File FileName="KRCCSim/Componente.cs" Line="38" Column="40" />
       <File FileName="KRCCSim/AssemblyInfo.cs" Line="1" Column="1" />
-      <File FileName="KRCCSim/Camion.cs" Line="26" Column="20" />
-      <File FileName="KRCCSim/Input.cs" Line="2" Column="1" />
-      <File FileName="RNG/Main.cs" Line="8" Column="4" />
-      <File FileName="RNG/RNGen.cs" Line="50" Column="5" />
+      <File FileName="KRCCSim/Camion.cs" Line="51" Column="66" />
+      <File FileName="KRCCSim/Input.cs" Line="1" Column="1" />
+      <File FileName="RNG/Main.cs" Line="11" Column="34" />
+      <File FileName="RNG/RNGen.cs" Line="97" Column="29" />
+      <File FileName="test/Main.cs" Line="18" Column="25" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/home/jia200x/simulacion/krccsim/KRCCSim/KRCCSim/KRCCSim/Camion.cs" line="28" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

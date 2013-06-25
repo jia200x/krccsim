@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NSControlador;
+using RNG;
 
 namespace KRCCSim
 {
@@ -12,8 +13,8 @@ namespace KRCCSim
         public double tiempo_actual, tiempo_max;
         public Faena faena;
 		private double tiempo_vida;
-		private double tiempo_creacion;
 		public string tipo_camion;
+		public double tiempo_creacion;
 		public bool muerto;
 		public Dictionary<string, double[]> componente_camion;
 		public Camion(Controlador c, Faena faena, string tipo_camion)
@@ -22,13 +23,15 @@ namespace KRCCSim
 			this.faena = faena;
 			this.faena.agregar_camion(this);
 			this.c = c;
-			this.tiempo_creacion = c.T_simulacion;
 
             string[] auxiliar = new string[2];
             auxiliar[0] = faena.Nombre;
             auxiliar[1] = tipo_camion;
             double[] aux = Input.tiempo_vida_camion[auxiliar];
-            this.tiempo_vida = aux[0];
+			//Sumarle el tiempo actual
+			this.tiempo_vida = aux[0];
+			//Corregir!!
+			this.tiempo_creacion = 0;
 
 			this.muerto = false;
 			this.tipo_camion = tipo_camion;
@@ -38,15 +41,16 @@ namespace KRCCSim
 			
 			//También, aquí se crean los componentes asociados al camión
             //componente_camion = Input.tasa_falla_componentes[tipo_camion];
-            componente_camion = null;
-            throw new NotImplementedException();
             //Alamos he cambiado la estructura del input, favor revísalo
 
 			//Se crean los componentes, se les asignan los tiempos
-			foreach (var par in componente_camion)
+			foreach (var par in Input.tasa_falla_componentes[tipo_camion])
 			{
-				Componente componente = new Componente(this.c, this, par.Key,par.Value);
-				this.agregar_componente(componente);
+				for (int i=0;i<Input.componentes_por_camion[this.tipo_camion][par.Key];i++)
+				{
+					Componente componente = new Componente(this.c, this, par.Key,par.Value);
+					this.agregar_componente(componente);
+				}
 			}
 			
 			
@@ -56,11 +60,7 @@ namespace KRCCSim
 			//Aquí se puede programar el cambio de camión. Esto es llamado automaticamente al ser suscrito
 			this.muerto = true;
 			//Se le indica a la faena que cree otro camión
-			Camion nuevo_camion = new Camion(this.c, this.faena, "E903");
-			faena.agregar_camion(nuevo_camion);
-			
-			//Se borra el camion actual de la faena
-			faena.camiones.Remove(this);
+			faena.reemplazar_camion(this);
 			
 			
 		}
@@ -71,18 +71,18 @@ namespace KRCCSim
 		public void reemplazar_componente(Componente defectuoso)
 		{
 			componentes.Remove(defectuoso);
-			//Con probabilidad P se agrega al batch...
+			
 
             string[] auxiliar = new string[2];
             auxiliar[0] = faena.Nombre;
             auxiliar[1] = tipo_camion;
             double[] aux = Input.tiempo_vida_camion[auxiliar];
             double probabilidad = aux[0];
-
-			faena.agregar_a_batch(defectuoso);		
+			//Con probabilidad P se agrega al batch...
+			if (RNGen.Unif(0,1) <= probabilidad) faena.agregar_a_batch(defectuoso);		
 			
 			//Agregar el componente nuevo
-			agregar_componente(new Componente(this.c, this, defectuoso.tipo_componente, componente_camion[defectuoso.tipo_componente]));
+			agregar_componente(new Componente(this.c, this, defectuoso.tipo_componente, Input.tasa_falla_componentes[new string[]{this.tipo_camion,defectuoso.tipo_componente}]));
 		}
 		public double edad
 		{

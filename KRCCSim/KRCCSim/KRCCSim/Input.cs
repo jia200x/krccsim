@@ -15,9 +15,9 @@ namespace KRCCSim
         public static Dictionary<string, string> reemplazo; //tiene la info de que camion se reemplaza por cual
         public static Dictionary<string[], double[]> tiempo_vida_camion; //string=[faena,camion], double=[hrs restantes, hrs trabajo anuales]
         public static Dictionary<string[], double> probabilidad_envio; //string=[faena,componente], double = probabilidad de envio a KRCC
-        public static Dictionary<string, double> mortalidad; //tiene la info de la tasa de mortalidad de un componente
+        public static Dictionary<string, double> mortalidad; //PENDIENTEtiene la info de la tasa de mortalidad de un componente
         public static Dictionary<string, double> ponderadores; //tiene la info del ponderador usado para cada faena
-        public static Dictionary<string[], double[]> ingresos_programados; //string=[faena,camion], double=[hrs restantes, hrs trabajo anuales,hora ingreso] 
+        public static Dictionary<string[], double[]> ingresos_programados; //PENDIENTEstring=[faena,camion], double=[hrs restantes, hrs trabajo anuales,hora ingreso] 
         
 		private Input ()
 		{

@@ -13,11 +13,19 @@ namespace KRCCSim
 		public List<Componente> batch;
 		//Ponderador de condiciones de la mina, por faena
 		public double ponderador;
-		public Faena(Controlador c)
+		public Faena(Controlador c, string Nombre)
 		{
 			this.c = c;
 			this.camiones = new List<Camion>();
 			this.batch = new List<Componente>();
+			this.Nombre = Nombre;
+			this.ponderador = Input.ponderadores[this.Nombre];
+			
+			//Se agregan los camiones por faena...
+			foreach (var par in Input.tiempo_vida_camion[this.Nombre])
+			{
+				Camion cam = new Camion(this.c, this, par.Key);
+			}
 			
 			//Solo por testing, la faena se reemplazará cada 70 unidades de tiempo
 			generar_siguiente_tiempo(70);

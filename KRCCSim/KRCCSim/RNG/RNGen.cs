@@ -92,6 +92,10 @@ namespace RNG
 			double Y2 = Gamma (b,1);
 			return Y1/(Y1+Y2);
 		}
+		public static double Unif(double a, double b)
+		{
+			return a+ran.NextDouble()*(b-a);
+		}
 	}
 }
 

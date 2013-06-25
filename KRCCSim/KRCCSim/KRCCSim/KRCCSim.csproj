@@ -46,6 +46,10 @@
       <Project>{37FC5210-5A1D-4C3F-8F0E-3C099D65ACA1}</Project>
       <Name>Controlador</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RNG\RNG.csproj">
+      <Project>{425B2CE2-68C7-4469-A661-43CFC3C91CBA}</Project>
+      <Name>RNG</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
