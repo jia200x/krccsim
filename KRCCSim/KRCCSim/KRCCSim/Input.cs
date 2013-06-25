@@ -13,7 +13,7 @@ namespace KRCCSim
         public static Dictionary<string[], double[]> tasa_falla_componentes; //string=[camion,componente] double[varianza,esperanzas año i]
         public static Dictionary<string[], double> componentes_por_camion; //string=[camion,componente] double es la cantidad
         public static Dictionary<string, string> reemplazo; //tiene la info de que camion se reemplaza por cual
-        public static Dictionary<string[], double[]> tiempo_vida_camion; //string=[faena,camion], double=[hrs restantes, hrs trabajo anuales]
+        public static Dictionary<string[], double[]> tiempo_vida_camion; //string=[faena,camion], double=[hrs restantes, hrs trabajo anuales,hrs trabajadas]
         public static Dictionary<string[], double> probabilidad_envio; //string=[faena,componente], double = probabilidad de envio a KRCC
         public static Dictionary<string, double> mortalidad; //tiene la info de la tasa de mortalidad de un componente
         public static Dictionary<string, double> ponderadores; //tiene la info del ponderador usado para cada faena
@@ -89,13 +89,14 @@ namespace KRCCSim
                 if (i > 0)
                 {
                     string[] aux_string = new string[2];
-                    double[] aux_double = new double[2];
+                    double[] aux_double = new double[3];
 
                     aux_string[0] = datos_entrada[0];
                     aux_string[1] = datos_entrada[1];
 
                     aux_double[0] = double.Parse(datos_entrada[2], System.Globalization.CultureInfo.InvariantCulture);
                     aux_double[1] = double.Parse(datos_entrada[3], System.Globalization.CultureInfo.InvariantCulture);
+                    aux_double[2] = double.Parse(datos_entrada[4], System.Globalization.CultureInfo.InvariantCulture);
 
                     r.Add(aux_string,aux_double);
                 }
