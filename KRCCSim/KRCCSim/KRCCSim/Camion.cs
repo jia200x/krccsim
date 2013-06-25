@@ -38,7 +38,7 @@ namespace KRCCSim
 			//Se crean los componentes, se les asignan los tiempos
 			foreach (var par in Input.tasa_falla_componentes[tipo_camion])
 			{
-				for (int i=0;i<Input.componentes_por_camion[this.tipo_camion].arr_double[0];i++)
+				for (int i=0;i<Input.componentes_por_camion[this.tipo_camion][par.arr_string[0]];i++)
 				{
 					Componente componente = new Componente(this.c, this, par.arr_string[0],par.arr_double);
 					this.agregar_componente(componente);
