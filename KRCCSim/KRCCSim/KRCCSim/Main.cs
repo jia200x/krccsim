@@ -8,13 +8,14 @@ namespace KRCCSim
 		public static void Main (string[] args)
 		{
 			string ruta_root = "/home/jia200x/Dropbox/Proyecto KOMATSU/Input/nuevas estructuras/";
-            /*Input.Inicializar(@"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_Faenas.csv", 
+            Input.Inicializar(@"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_Faenas.csv", 
                 @"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\input_probabilidad envio.csv",
                 @"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_ingresos_programados.csv",
                 @"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_reemplazos.csv",
                 @"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_mortalidad.csv",
-                null, @"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_ponderadores.csv",
-                @"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_componentes_por_camion.csv");*/
+                @"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_falla_componentes.csv",
+                @"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_ponderadores.csv",
+                @"E:\Dropbox\Proyecto KOMATSU (1)\Input\nuevas estructuras\Input_componentes_por_camion.csv");
 			
 			Input.Inicializar(ruta_root+"Input_Faenas.csv", 
                 ruta_root+"input_probabilidad envio.csv",
