@@ -25,6 +25,7 @@ namespace KRCCSim
 			this.camion = camion;
 			this.tipo_componente = tipo_componente;
 			this.tasas_falla = tasas_falla;
+			//Console.WriteLine ("Se ha generado el siguiente tiempo de falla para el componente {0} en {1}",tipo_componente,30);
 			generar_siguiente_tiempo(generar_tiempo_de_falla());
 		}
 		private double generar_tiempo_de_falla()
@@ -35,7 +36,6 @@ namespace KRCCSim
 			
 			//Se tiene la varianza y la media en este punto
 			//INCLUIR EL PONDERADOR DE LA FAENA!!
-			throw new NotImplementedException();
 			return (double) 30;
 		}
     }

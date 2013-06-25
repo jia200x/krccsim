@@ -22,6 +22,7 @@ namespace NSControlador
 		
 		public void Run()
 		{
+			double last_T=0;
 			while(true)
 			{
                 eventos.Sort(Ordenar);
@@ -31,7 +32,11 @@ namespace NSControlador
 					break;
 				}
 				this.T = eventos[0].tiempo_cambio;
-				Console.WriteLine("\nTiempo actual: {0}",T);
+				if (last_T != this.T)
+				{
+					Console.WriteLine("\nTiempo actual: {0}",T);
+					last_T = this.T;
+				}
 				if (this.T > t_max) break;
                 eventos[0].realizar_cambio();
 				eventos.RemoveAt(0);

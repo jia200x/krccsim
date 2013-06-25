@@ -28,8 +28,6 @@ namespace KRCCSim
 			this.muerto = false;
 			this.tipo_camion = tipo_camion;
 			
-			//Aquí se suscribe el reemplazo de camión
-			generar_siguiente_tiempo(this.tiempo_restante);
 			
 			//También, aquí se crean los componentes asociados al camión
             //componente_camion = Input.tasa_falla_componentes[tipo_camion];
@@ -38,9 +36,9 @@ namespace KRCCSim
 			//Se crean los componentes, se les asignan los tiempos
 			foreach (var par in Input.tasa_falla_componentes[tipo_camion])
 			{
-				for (int i=0;i<Input.componentes_por_camion[this.tipo_camion][par.arr_string[0]];i++)
+				for (int i=0;i<Input.componentes_por_camion[this.tipo_camion][par.Key];i++)
 				{
-					Componente componente = new Componente(this.c, this, par.arr_string[0],par.arr_double);
+					Componente componente = new Componente(this.c, this, par.Key,par.Value);
 					this.agregar_componente(componente);
 				}
 			}
@@ -52,15 +50,15 @@ namespace KRCCSim
 			this.tasa_trabajo = tasa_trabajo;
 			this.tiempo_restante = t_restante;
 			this.tiempo_inicializacion = t_init;
+			//Aquí se suscribe el reemplazo de camión
+			generar_siguiente_tiempo(this.tiempo_restante);
 		}
 		public override void realizar_cambio()
 		{
 			//Aquí se puede programar el cambio de camión. Esto es llamado automaticamente al ser suscrito
 			this.muerto = true;
 			//Se le indica a la faena que cree otro camión
-			faena.reemplazar_camion(this);
-			
-			
+			faena.reemplazar_camion(this);		
 		}
 		public void agregar_componente(Componente componente)
 		{
@@ -69,20 +67,12 @@ namespace KRCCSim
 		public void reemplazar_componente(Componente defectuoso)
 		{
 			componentes.Remove(defectuoso);
-			
-
-            string[] auxiliar = new string[2];
-            auxiliar[0] = faena.Nombre;
-            auxiliar[1] = tipo_camion;
-            //double[] aux = Input.tiempo_vida_camion[auxiliar];
-            //double probabilidad = aux[0];
+            double probabilidad = Input.probabilidad_envio[this.faena.Nombre][defectuoso.tipo_componente];
 			//Con probabilidad P se agrega al batch...
-			//if (RNGen.Unif(0,1) <= probabilidad) faena.agregar_a_batch(defectuoso);		
-            //cambie los dictrionaries
-            throw new NotFiniteNumberException();
+			if (RNGen.Unif(0,1) <= probabilidad) faena.agregar_a_batch(defectuoso);		
 			
 			//Agregar el componente nuevo
-			//agregar_componente(new Componente(this.c, this, defectuoso.tipo_componente, Input.tasa_falla_componentes[new string[]{this.tipo_camion,defectuoso.tipo_componente}]));
+			agregar_componente(new Componente(this.c, this, defectuoso.tipo_componente, Input.tasa_falla_componentes[this.tipo_camion][defectuoso.tipo_componente]));
 		}
 		/*public double edad
 		{

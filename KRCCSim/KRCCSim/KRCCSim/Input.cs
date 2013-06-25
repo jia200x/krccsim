@@ -63,7 +63,7 @@ namespace KRCCSim
             }
 			return r;
 		}
-
+			
         private static Dictionary<string, double> gen_ponderadores(string ruta_ponderadores)
         {
             Dictionary<string, double> r = new Dictionary<string, double>();

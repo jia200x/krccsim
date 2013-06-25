@@ -22,10 +22,16 @@ namespace KRCCSim
 			this.ponderador = Input.ponderadores[this.Nombre];
 			
 			//Se agregan los camiones por faena...
-			foreach (var dato in Input.tiempo_vida_camion[this.Nombre])
+			try
 			{
-				Camion cam = new Camion(this.c, this, dato.arr_string[0]);
-				cam.actualizar_tiempos(dato.arr_double[1], dato.arr_double[0], dato.arr_double[2]);
+				foreach (var dato in Input.tiempo_vida_camion[this.Nombre])
+				{
+					Camion cam = new Camion(this.c, this, dato.arr_string[0]);
+					cam.actualizar_tiempos(dato.arr_double[1], dato.arr_double[0], dato.arr_double[2]);
+				}
+			}
+			catch
+			{
 			}
 			
 			//Solo por testing, la faena se reemplazará cada 70 unidades de tiempo
@@ -50,7 +56,7 @@ namespace KRCCSim
 		public void agregar_a_batch(Componente defectuoso)
 		{
 			this.batch.Add(defectuoso);
-			Console.WriteLine("Ahora hay {0} componentes en el batch",batch.Count);
+			Console.WriteLine("Ahora hay {0} componentes en el batch de {1}",batch.Count, this.Nombre);
 		}
 		public void vaciar_batch()
 		{
