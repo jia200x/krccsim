@@ -50,10 +50,10 @@ Global
 		{425B2CE2-68C7-4469-A661-43CFC3C91CBA}.Release|x86.ActiveCfg = Release|Mixed Platforms
 		{425B2CE2-68C7-4469-A661-43CFC3C91CBA}.Release|x86.Build.0 = Release|Mixed Platforms
 	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = KRCCSim\KRCCSim.csproj
-	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = KRCCSim\KRCCSim.csproj
 	EndGlobalSection
 EndGlobal
