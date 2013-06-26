@@ -17,6 +17,7 @@ namespace KRCCSim
 		public double tiempo_inicializacion;
 		public double tiempo_restante;
 		private double tiempo_creacion;
+		public double tiempo_muerte;
 		public bool muerto;
 		public Dictionary<string, double[]> componente_camion;
 		public Camion(Controlador c, Faena faena, string tipo_camion, double[] tiempos)
@@ -55,7 +56,8 @@ namespace KRCCSim
 			this.tiempo_restante = t_restante;
 			this.tiempo_inicializacion = t_init;
 			//Aquí se suscribe el reemplazo de camión
-			generar_siguiente_tiempo(this.tiempo_restante*(24*365)/tasa_trabajo);
+			this.tiempo_muerte = this.tiempo_restante*(24*365)/tasa_trabajo;
+			generar_siguiente_tiempo(this.tiempo_muerte);
 		}
 		public override void realizar_cambio()
 		{

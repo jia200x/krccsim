@@ -61,18 +61,18 @@ namespace KRCCSim
 		public void vaciar_batch()
 		{
 			//int n_componentes = batch.Count;
-			string status;
+			int status;
 			foreach(Componente comp in batch)
 			{
 				if (Input.mortalidad[comp.tipo_componente] <= RNGen.Unif(0,1))
 				{
-					status = "M";
+					status = 0;
 				}
 				else
 				{
-					status = "R";
+					status = 1;
 				}
-				Reg.agregar_registro(this.c.T_simulacion,this.Nombre,comp.camion.tipo_camion,comp.tipo_componente,status);
+				//Reg.agregar_registro(this.c.T_simulacion,this.Nombre,comp.camion.tipo_camion,comp.tipo_componente,status);
 			}
 			batch = new List<Componente>();
 			//Console.WriteLine ("Se han enviado {0} componentes a KRCC", n_componentes);

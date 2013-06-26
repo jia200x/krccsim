@@ -1,18 +1,21 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|Mixed Platforms" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="KRCCSim/Componente.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="KRCCSim/Faena.cs">
     <Files>
-      <File FileName="Controlador/Controlador.cs" Line="38" Column="1" />
-      <File FileName="Controlador/Evento.cs" Line="23" Column="1" />
-      <File FileName="KRCCSim/Faena.cs" Line="17" Column="4" />
-      <File FileName="KRCCSim/Main.cs" Line="52" Column="11" />
-      <File FileName="KRCCSim/Componente.cs" Line="59" Column="1" />
+      <File FileName="Controlador/Controlador.cs" Line="35" Column="21" />
+      <File FileName="Controlador/Evento.cs" Line="25" Column="26" />
+      <File FileName="KRCCSim/Faena.cs" Line="70" Column="6" />
+      <File FileName="KRCCSim/Main.cs" Line="52" Column="41" />
+      <File FileName="KRCCSim/Componente.cs" Line="21" Column="5" />
       <File FileName="KRCCSim/AssemblyInfo.cs" Line="1" Column="1" />
-      <File FileName="KRCCSim/Camion.cs" Line="78" Column="1" />
-      <File FileName="KRCCSim/Input.cs" Line="13" Column="73" />
+      <File FileName="KRCCSim/Camion.cs" Line="18" Column="10" />
+      <File FileName="KRCCSim/Input.cs" Line="2" Column="1" />
       <File FileName="RNG/Main.cs" Line="11" Column="34" />
-      <File FileName="RNG/RNGen.cs" Line="128" Column="17" />
+      <File FileName="RNG/RNGen.cs" Line="132" Column="1" />
       <File FileName="KRCCSim/Dato.cs" Line="18" Column="1" />
+      <File FileName="KRCCSim/VaciadoBatch.cs" Line="14" Column="15" />
+      <File FileName="Registro/Main.cs" Line="2" Column="1" />
+      <File FileName="Registro/Reg.cs" Line="16" Column="50" />
     </Files>
     <Pads>
       <Pad Id="MonoDevelop.Debugger.WatchPad">
@@ -20,15 +23,14 @@
           <Value>Input.tasa_falla_componentes</Value>
           <Value>this.faena</Value>
           <Value>defectuoso</Value>
+          <Value>this._tiempo_cambio</Value>
+          <Value>this.c.T_simulacion</Value>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/home/jia200x/simulacion/krccsim/KRCCSim/KRCCSim/Controlador/Controlador.cs" line="41" />
-      <Breakpoint file="/home/jia200x/simulacion/krccsim/KRCCSim/KRCCSim/KRCCSim/Componente.cs" line="53" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

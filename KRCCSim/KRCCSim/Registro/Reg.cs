@@ -11,9 +11,9 @@ namespace Registro
 		public Reg ()
 		{
 		}
-		public static void agregar_registro(double tiempo, string faena, string camion, string componente, string status)
+		public static void agregar_registro(double tiempo, string faena, string camion, string componente, int status)
 		{
-			registros.Add (new string[]{tiempo.ToString(),faena,camion,componente,status});
+			registros.Add (new string[]{tiempo.ToString(),faena,camion,componente,status.ToString()});
 		}
 	}
 }
