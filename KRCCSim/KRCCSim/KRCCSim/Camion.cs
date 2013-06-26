@@ -16,6 +16,7 @@ namespace KRCCSim
 		public string tipo_camion;
 		private double tiempo_inicializacion;
 		private double tiempo_restante;
+		private double tiempo_creacion;
 		public bool muerto;
 		public Dictionary<string, double[]> componente_camion;
 		public Camion(Controlador c, Faena faena, string tipo_camion)
@@ -24,7 +25,7 @@ namespace KRCCSim
 			this.faena = faena;
 			this.faena.agregar_camion(this);
 			this.c = c;
-
+			this.tiempo_creacion = this.c.T_simulacion;
 			this.muerto = false;
 			this.tipo_camion = tipo_camion;
 			
@@ -51,7 +52,7 @@ namespace KRCCSim
 			this.tiempo_restante = t_restante;
 			this.tiempo_inicializacion = t_init;
 			//Aquí se suscribe el reemplazo de camión
-			generar_siguiente_tiempo(this.tiempo_restante);
+			generar_siguiente_tiempo(this.tiempo_restante*(24*365)/tasa_trabajo);
 		}
 		public override void realizar_cambio()
 		{
@@ -74,11 +75,11 @@ namespace KRCCSim
 			//Agregar el componente nuevo
 			agregar_componente(new Componente(this.c, this, defectuoso.tipo_componente, Input.tasa_falla_componentes[this.tipo_camion][defectuoso.tipo_componente]));
 		}
-		/*public double edad
+		public double edad
 		{
 			get{
-				//return c.T_simulacion-tiempo_creacion;
+				return tiempo_inicializacion/tasa_trabajo+this.c.T_simulacion/(24*365);
 			}
-		}*/
+		}
     }
 }

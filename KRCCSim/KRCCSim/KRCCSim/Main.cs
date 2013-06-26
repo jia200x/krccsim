@@ -29,7 +29,7 @@ namespace KRCCSim
                 ruta_root+"Input_componentes_por_camion.csv");
 
 			//Agregar una faena de prueba
-			Controlador c = new Controlador(1000);
+			Controlador c = new Controlador((365*24*20));
 			List<Faena> lf= new List<Faena>();
 			foreach(var f in Input.ponderadores)
 			{

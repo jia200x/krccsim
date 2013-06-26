@@ -51,7 +51,7 @@ namespace KRCCSim
 		{
 			//Se vacía el batch y se vuelve a agregar el siguiente tiempo en que se manda el batch
 			vaciar_batch ();
-			generar_siguiente_tiempo(70);
+			generar_siguiente_tiempo(24*365);
 		}
 		public void agregar_a_batch(Componente defectuoso)
 		{
