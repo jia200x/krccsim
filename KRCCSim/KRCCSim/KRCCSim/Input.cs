@@ -18,7 +18,7 @@ namespace KRCCSim
         public static Dictionary<string, double> mortalidad; //tiene la info de la tasa de mortalidad de un componente
         public static Dictionary<string, double> ponderadores; //tiene la info del ponderador usado para cada faena
         public static Dictionary<string, Dato[]> ingresos_programados; //string externo faena, interno camion, double=[hrs restantes, hrs trabajo anuales,hora ingreso] 
-
+		
 		private Input ()
 		{
 			
@@ -110,12 +110,12 @@ namespace KRCCSim
                     ultima_dato_faena = datos_entrada[0];
                     
 
-                    lista.Add(new Dato(aux_string,aux_double));
+                    lista.Add(new Dato(aux_string,aux_double));					
                 }
 
             }
             externo.Add(ultima_dato_faena, lista.ToArray());
-            return externo;
+			return externo;
 		}
 
         private static Dictionary<string, Dato[]> gen_ingreso_programado(string ruta_faenas)

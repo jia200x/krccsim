@@ -44,8 +44,8 @@ namespace KRCCSim
 		{
 			camiones.Remove(original);
 			//CAMBIAR!!
-			Camion camion_nuevo = new Camion(this.c, this, Input.reemplazo[original.tipo_camion],new double[]{100000,5000,0});
-			agregar_camion(camion_nuevo);
+			string reemplazo = Input.reemplazo[original.tipo_camion];
+			Camion camion_nuevo = new Camion(this.c, this, reemplazo,new double[]{100000,5000,0});
 		}
 		public override void realizar_cambio()
 		{
@@ -74,6 +74,7 @@ namespace KRCCSim
 				}
 				//Reg.agregar_registro(this.c.T_simulacion,this.Nombre,comp.camion.tipo_camion,comp.tipo_componente,status);
 			}
+			batch = null;
 			batch = new List<Componente>();
 			//Console.WriteLine ("Se han enviado {0} componentes a KRCC", n_componentes);
 		}
