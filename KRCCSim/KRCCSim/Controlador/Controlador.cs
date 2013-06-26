@@ -57,17 +57,6 @@ namespace NSControlador
 			}
 			Console.WriteLine("Ha finalizado la simulación");
 		}
-        private int Ordenar(Evento a, Evento b)
-		{
-            if (a.tiempo_cambio < b.tiempo_cambio)
-                return -1;
-
-            else if (a.tiempo_cambio > b.tiempo_cambio)
-                return 1;
-
-            else
-                return 0;
-		}
 		public void agregar_evento(Evento evento)
 		{
 			//Se busca la posición en que se debe agregar el evento para respetar el árbol binario

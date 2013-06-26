@@ -19,10 +19,6 @@ namespace KRCCSim
 			{
 				camion.reemplazar_componente(this);
 			}
-			else
-			{
-				Console.WriteLine("Camion muerto");
-			}
 		}
 		public Componente(Controlador c, Camion camion, string tipo_componente, double[] tasas_falla, bool usado=false)
 		{
@@ -37,7 +33,7 @@ namespace KRCCSim
 				double sgte_tiempo = generar_tiempo_de_falla((int)camion.edad);
 				//Si el siguiente tiempo de falla es mayor a la hora en que muere el camión, no agregarlo a eventos
 				if(this.c.T_simulacion+sgte_tiempo < this.camion.tiempo_muerte)
-					generar_siguiente_tiempo(generar_tiempo_de_falla((int)camion.edad));
+					generar_siguiente_tiempo(sgte_tiempo);
 			}
 			else
 			{
@@ -60,7 +56,7 @@ namespace KRCCSim
 					{
 						double sgte_tiempo = t-a_func*(365*24);
 						if(this.c.T_simulacion+sgte_tiempo < this.camion.tiempo_muerte)
-							generar_siguiente_tiempo(t-a_func*(365*24));
+							generar_siguiente_tiempo(sgte_tiempo);
 						break;
 					}
 				}
