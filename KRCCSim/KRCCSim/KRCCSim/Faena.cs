@@ -21,7 +21,7 @@ namespace KRCCSim
 			this.camiones = new List<Camion>();
 			this.batch = new List<Componente>();
 			this.Nombre = Nombre;
-			this.ponderador = Input.ponderadores[this.Nombre];
+			this.ponderador = Input.ponderadores[this.Nombre][0];
 			
 			//Se agregan los camiones por faena...
 			try

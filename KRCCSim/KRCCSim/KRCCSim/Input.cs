@@ -16,7 +16,7 @@ namespace KRCCSim
         public static Dictionary<string, Dato[]> tiempo_vida_camion; //string externo faena interno camion, double=[hrs restantes, hrs trabajo anuales,hrs trabajadas]
         public static Dictionary<string, Dictionary<string,double>> probabilidad_envio; //string interno faena, externo componente, double = probabilidad de envio a KRCC
         public static Dictionary<string, double> mortalidad; //tiene la info de la tasa de mortalidad de un componente
-        public static Dictionary<string, double> ponderadores; //tiene la info del ponderador usado para cada faena
+        public static Dictionary<string, double[]> ponderadores; //tiene la info del ponderador usado para cada faena y las hrs por faena
         public static Dictionary<string, Dato[]> ingresos_programados; //string externo faena, interno camion, double=[hrs restantes, hrs trabajo anuales,hora ingreso] 
 		
 		private Input ()
@@ -64,16 +64,19 @@ namespace KRCCSim
 			return r;
 		}
 			
-        private static Dictionary<string, double> gen_ponderadores(string ruta_ponderadores)
+        private static Dictionary<string, double[]> gen_ponderadores(string ruta_ponderadores)
         {
-            Dictionary<string, double> r = new Dictionary<string, double>();
+            Dictionary<string, double[]> r = new Dictionary<string, double[]>();
             string[] input_file = File.ReadAllLines(ruta_ponderadores);
             for (int i = 0; i < input_file.Length; i++)
             {
                 string[] faena_ponderador = input_file[i].Split(',');
                 if (i > 0)
                 {
-                    r.Add(faena_ponderador[0], double.Parse(faena_ponderador[1], System.Globalization.CultureInfo.InvariantCulture));
+                    double[] aux_double = new double[2];
+                    aux_double[0] = double.Parse(faena_ponderador[1], System.Globalization.CultureInfo.InvariantCulture);
+                    aux_double[1] = double.Parse(faena_ponderador[2], System.Globalization.CultureInfo.InvariantCulture);
+                    r.Add(faena_ponderador[0], aux_double);
                 }
             }
             return r;

@@ -7,3 +7,5 @@ C:\Users\Felipe\Documents\GitHub\krccsim\KRCCSim\KRCCSim\KRCCSim\obj\x86\Debug\K
 C:\Users\Felipe\Documents\GitHub\krccsim\KRCCSim\KRCCSim\KRCCSim\obj\x86\Debug\KRCCSim.pdb
 C:\Users\Felipe\Documents\GitHub\krccsim\KRCCSim\KRCCSim\KRCCSim\bin\Debug\RNG.exe
 C:\Users\Felipe\Documents\GitHub\krccsim\KRCCSim\KRCCSim\KRCCSim\bin\Debug\RNG.pdb
+C:\Users\Felipe\Documents\GitHub\krccsim\KRCCSim\KRCCSim\KRCCSim\bin\Debug\Registro.exe
+C:\Users\Felipe\Documents\GitHub\krccsim\KRCCSim\KRCCSim\KRCCSim\bin\Debug\Registro.pdb
