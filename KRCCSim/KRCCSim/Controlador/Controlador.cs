@@ -10,7 +10,7 @@ namespace NSControlador
 		{
 			get{return T;}
 		}
-		private double t_max;
+		public double t_max;
         internal List<Evento> eventos;
 
 		public Controlador (double t_max)
@@ -32,7 +32,7 @@ namespace NSControlador
 					break;
 				}
 				this.T = eventos[0].tiempo_cambio;
-				if (last_T != this.T)
+				if (last_T+500 < this.T)
 				{
 					Console.WriteLine("\nTiempo actual: {0}",T);
 					last_T = this.T;

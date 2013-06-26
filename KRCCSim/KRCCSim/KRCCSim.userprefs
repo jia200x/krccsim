@@ -1,17 +1,17 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|Mixed Platforms" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="KRCCSim/Camion.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="KRCCSim/Componente.cs">
     <Files>
-      <File FileName="Controlador/Controlador.cs" Line="60" Column="1" />
-      <File FileName="Controlador/Evento.cs" Line="19" Column="1" />
-      <File FileName="KRCCSim/Faena.cs" Line="29" Column="1" />
-      <File FileName="KRCCSim/Main.cs" Line="37" Column="1" />
-      <File FileName="KRCCSim/Componente.cs" Line="44" Column="1" />
+      <File FileName="Controlador/Controlador.cs" Line="38" Column="1" />
+      <File FileName="Controlador/Evento.cs" Line="23" Column="1" />
+      <File FileName="KRCCSim/Faena.cs" Line="17" Column="4" />
+      <File FileName="KRCCSim/Main.cs" Line="52" Column="11" />
+      <File FileName="KRCCSim/Componente.cs" Line="59" Column="1" />
       <File FileName="KRCCSim/AssemblyInfo.cs" Line="1" Column="1" />
-      <File FileName="KRCCSim/Camion.cs" Line="24" Column="1" />
-      <File FileName="KRCCSim/Input.cs" Line="12" Column="57" />
+      <File FileName="KRCCSim/Camion.cs" Line="78" Column="1" />
+      <File FileName="KRCCSim/Input.cs" Line="13" Column="73" />
       <File FileName="RNG/Main.cs" Line="11" Column="34" />
-      <File FileName="RNG/RNGen.cs" Line="60" Column="25" />
+      <File FileName="RNG/RNGen.cs" Line="128" Column="17" />
       <File FileName="KRCCSim/Dato.cs" Line="18" Column="1" />
     </Files>
     <Pads>
@@ -26,7 +26,8 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/home/jia200x/simulacion/krccsim/KRCCSim/KRCCSim/KRCCSim/Camion.cs" line="40" />
+      <Breakpoint file="/home/jia200x/simulacion/krccsim/KRCCSim/KRCCSim/Controlador/Controlador.cs" line="41" />
+      <Breakpoint file="/home/jia200x/simulacion/krccsim/KRCCSim/KRCCSim/KRCCSim/Componente.cs" line="53" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

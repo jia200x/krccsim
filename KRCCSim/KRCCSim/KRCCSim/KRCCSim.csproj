@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -41,6 +41,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Input.cs" />
+    <Compile Include="VaciadoBatch.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Controlador\Controlador.csproj">
@@ -50,6 +51,10 @@
     <ProjectReference Include="..\RNG\RNG.csproj">
       <Project>{425B2CE2-68C7-4469-A661-43CFC3C91CBA}</Project>
       <Name>RNG</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Registro\Registro.csproj">
+      <Project>{AACB27D5-FE65-4806-BC99-0053FD16B1A1}</Project>
+      <Name>Registro</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

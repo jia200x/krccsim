@@ -12,14 +12,14 @@ namespace KRCCSim
         public List<Componente> componentes;
         public double tiempo_actual, tiempo_max;
         public Faena faena;
-		private double tasa_trabajo;
+		public double tasa_trabajo;
 		public string tipo_camion;
-		private double tiempo_inicializacion;
-		private double tiempo_restante;
+		public double tiempo_inicializacion;
+		public double tiempo_restante;
 		private double tiempo_creacion;
 		public bool muerto;
 		public Dictionary<string, double[]> componente_camion;
-		public Camion(Controlador c, Faena faena, string tipo_camion)
+		public Camion(Controlador c, Faena faena, string tipo_camion, double[] tiempos)
 		{
 			this.componentes = new List<Componente>();
 			this.faena = faena;
@@ -35,11 +35,14 @@ namespace KRCCSim
             //Alamos he cambiado la estructura del input, favor revísalo
 
 			//Se crean los componentes, se les asignan los tiempos
+			actualizar_tiempos(tiempos[0],tiempos[1], tiempos[2]);
 			foreach (var par in Input.tasa_falla_componentes[tipo_camion])
 			{
 				for (int i=0;i<Input.componentes_por_camion[this.tipo_camion][par.Key];i++)
 				{
-					Componente componente = new Componente(this.c, this, par.Key,par.Value);
+					bool usado=false;
+					if (this.tiempo_inicializacion > 0) usado=true;
+					Componente componente = new Componente(this.c, this, par.Key,par.Value,usado);
 					this.agregar_componente(componente);
 				}
 			}

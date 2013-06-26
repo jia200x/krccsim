@@ -96,6 +96,41 @@ namespace RNG
 		{
 			return a+ran.NextDouble()*(b-a);
 		}
+		public static double Arcsin()
+		{
+			return Math.Pow(Math.Sin(Math.PI*ran.NextDouble()/2),2);
+		}
+		public static double CustomFit(double[] input)
+		{
+			if (input.Length != 21)
+			{
+				throw new Exception();
+			}
+			double U = Unif (0,1);
+			//Checkear en que área queda
+			double suma=0;
+			for(int i=1;i<21;i++)
+			{
+				suma+=input[i];
+			}
+			double punto = U*suma;
+			double sa=0;
+			//Se busca donde está ese punto
+			for(int i=1;i<21;i++)
+			{
+				sa+=input[i];
+				if (punto <= sa)
+				{
+					//Se encontró el punto... Luego, se devuelve la instancia
+					return punto;
+				}
+			}
+			return punto;
+		}
+		public static double Expo(double rate)
+		{
+			return -Math.Log (1-ran.NextDouble())/rate;
+		}
 	}
 }
 

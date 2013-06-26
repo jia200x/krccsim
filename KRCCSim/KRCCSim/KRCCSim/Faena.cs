@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NSControlador;
+using RNG;
+using Registro;
 
 namespace KRCCSim
 {
@@ -26,16 +28,13 @@ namespace KRCCSim
 			{
 				foreach (var dato in Input.tiempo_vida_camion[this.Nombre])
 				{
-					Camion cam = new Camion(this.c, this, dato.arr_string[0]);
-					cam.actualizar_tiempos(dato.arr_double[1], dato.arr_double[0], dato.arr_double[2]);
+					Camion cam = new Camion(this.c, this, dato.arr_string[0], new double[]{dato.arr_double[1], dato.arr_double[0], dato.arr_double[2]});
 				}
 			}
 			catch
 			{
 			}
 			
-			//Solo por testing, la faena se reemplazará cada 70 unidades de tiempo
-			generar_siguiente_tiempo(70);
 		}
 		public void agregar_camion(Camion camion)
 		{
@@ -44,25 +43,39 @@ namespace KRCCSim
 		public void reemplazar_camion(Camion original)
 		{
 			camiones.Remove(original);
-			Camion camion_nuevo = new Camion(this.c, this, Input.reemplazo[original.tipo_camion]);
+			//CAMBIAR!!
+			Camion camion_nuevo = new Camion(this.c, this, Input.reemplazo[original.tipo_camion],new double[]{100000,5000,0});
 			agregar_camion(camion_nuevo);
 		}
 		public override void realizar_cambio()
 		{
-			//Se vacía el batch y se vuelve a agregar el siguiente tiempo en que se manda el batch
+			/*//Se vacía el batch y se vuelve a agregar el siguiente tiempo en que se manda el batch
 			vaciar_batch ();
-			generar_siguiente_tiempo(24*365);
+			generar_siguiente_tiempo(24*365);*/
 		}
 		public void agregar_a_batch(Componente defectuoso)
 		{
 			this.batch.Add(defectuoso);
-			Console.WriteLine("Ahora hay {0} componentes en el batch de {1}",batch.Count, this.Nombre);
+			//Console.WriteLine("Ahora hay {0} componentes en el batch de {1}",batch.Count, this.Nombre);
 		}
 		public void vaciar_batch()
 		{
-			int n_componentes = batch.Count;
+			//int n_componentes = batch.Count;
+			string status;
+			foreach(Componente comp in batch)
+			{
+				if (Input.mortalidad[comp.tipo_componente] <= RNGen.Unif(0,1))
+				{
+					status = "M";
+				}
+				else
+				{
+					status = "R";
+				}
+				Reg.agregar_registro(this.c.T_simulacion,this.Nombre,comp.camion.tipo_camion,comp.tipo_componente,status);
+			}
 			batch = new List<Componente>();
-			Console.WriteLine ("Se han enviado {0} componentes a KRCC", n_componentes);
+			//Console.WriteLine ("Se han enviado {0} componentes a KRCC", n_componentes);
 		}
 		/// <summary>
 		/// Genera la tabla de reemplazo de camiones para la faena

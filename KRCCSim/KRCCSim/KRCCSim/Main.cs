@@ -49,6 +49,7 @@ namespace KRCCSim
 					}
 				}
 			}
+			VaciadoBatch vb = new VaciadoBatch(c,lf);
 			c.Run();
 		}
 	}

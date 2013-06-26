@@ -22,7 +22,7 @@ public abstract class Evento
 		{
 			Debug.Write("Se genera un siguiente tiemo de falla");
 			this._tiempo_cambio = c.T_simulacion+tiempo;
-			c.agregar_evento(this);
+			if (this._tiempo_cambio <= c.t_max) c.agregar_evento(this);
 		}
     }
 }
